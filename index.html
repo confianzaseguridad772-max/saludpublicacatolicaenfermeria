@@ -3,42 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluación Salud Pública - PUCP</title>
+    <title>Simulador PUCP | Epidemiología Histórica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background-overlay"></div>
-    
-    <div class="container">
+    <div class="glass-container">
         <header>
-            <div class="badge">ENFERMERÍA PUCP</div>
-            <h1>Simulador de Epidemiología Histórica</h1>
-            <div class="progress-wrapper">
-                <div id="progress-bar" class="progress-bar"></div>
+            <div class="brand-header">
+                <span class="pucp-tag">ENFERMERÍA <strong>PUCP</strong></span>
+                <div id="q-counter" class="counter">Pregunta 1/10</div>
             </div>
+            <h1>Simulador de Epidemiología Histórica</h1>
+            <div class="progress-bar"><div id="progress-fill"></div></div>
         </header>
 
-        <main id="quiz-app">
-            <div id="question-container" class="active">
-                <h2 id="question-title">Cargando...</h2>
-                <div id="answer-buttons" class="btn-grid"></div>
-            </div>
-
-            <div id="result-container" class="hidden">
-                <div class="avatar-box">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&accessories=glassRound&clothing=overall&clothingColor=003a70&top=shortHair" alt="Avatar Enfermería" class="avatar-img">
-                </div>
-                <h2>Resultado de la Evaluación</h2>
-                <div class="score-display">
-                    <span id="score-num">0</span><small>/20</small>
-                </div>
-                <p id="feedback-text"></p>
-                <button onclick="location.reload()" class="btn-restart">Intentar de nuevo</button>
-            </div>
+        <main id="quiz-area">
+            <h2 id="question-text">Cargando evaluación...</h2>
+            <div id="options-grid" class="options-grid"></div>
         </main>
-    </div>
 
+        <section id="results" class="hidden">
+            <div class="avatar-frame">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=003a70&clothingColor=ffffff&top=shortHair&accessories=glassRound" alt="Avatar PUCP" class="avatar-img">
+            </div>
+            <h3>Resultado de la Evaluación</h3>
+            <div class="score-box">
+                <span id="grade">0.0</span><small>/20</small>
+            </div>
+            <p id="feedback"></p>
+            <button onclick="location.reload()" class="btn-primary">Reiniciar Prueba</button>
+        </section>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
