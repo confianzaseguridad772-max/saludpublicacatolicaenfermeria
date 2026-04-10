@@ -8,32 +8,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="glass-container">
-        <header>
-            <div class="brand-header">
-                <span class="pucp-tag">ENFERMERÍA <strong>PUCP</strong></span>
-                <div id="q-counter" class="counter">Pregunta 1/10</div>
-            </div>
-            <h1>Simulador de Epidemiología Histórica</h1>
-            <div class="progress-bar"><div id="progress-fill"></div></div>
-        </header>
+    <div class="main-wrapper">
+        <div class="glass-card">
+            <header>
+                <div class="top-nav">
+                    <span class="pucp-brand">ENFERMERÍA <strong>PUCP</strong></span>
+                    <div id="q-counter" class="step-badge">Pregunta 1/10</div>
+                </div>
+                <h1>Simulador de Epidemiología Histórica</h1>
+                <div class="progress-container">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </header>
 
-        <main id="quiz-area">
-            <h2 id="question-text">Cargando evaluación...</h2>
-            <div id="options-grid" class="options-grid"></div>
-        </main>
+            <main id="quiz-container">
+                <h2 id="question-text">Preparando evaluación...</h2>
+                <div id="options-grid" class="options-grid"></div>
+            </main>
 
-        <section id="results" class="hidden">
-            <div class="avatar-frame">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=003a70&clothingColor=ffffff&top=shortHair&accessories=glassRound" alt="Avatar PUCP" class="avatar-img">
-            </div>
-            <h3>Resultado de la Evaluación</h3>
-            <div class="score-box">
-                <span id="grade">0.0</span><small>/20</small>
-            </div>
-            <p id="feedback"></p>
-            <button onclick="location.reload()" class="btn-primary">Reiniciar Prueba</button>
-        </section>
+            <section id="results-area" class="hidden">
+                <div class="avatar-container">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=003a70&clothingColor=ffffff&top=shortHair&accessories=glassRound" alt="Avatar PUCP" class="avatar-img">
+                </div>
+                <h3>Evaluación Finalizada</h3>
+                <div class="grade-display">
+                    <span id="final-grade">0.0</span><small>/20</small>
+                </div>
+                <p id="feedback-text"></p>
+                <button onclick="location.reload()" class="btn-restart">Intentar de nuevo</button>
+            </section>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
