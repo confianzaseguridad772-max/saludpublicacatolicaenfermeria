@@ -3,214 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Censo Infantil - Registro Completo</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Evaluación Salud Pública - PUCP</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="background-overlay"></div>
+    
+    <div class="container">
+        <header>
+            <div class="badge">ENFERMERÍA PUCP</div>
+            <h1>Simulador de Epidemiología Histórica</h1>
+            <div class="progress-wrapper">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+        </header>
 
-<header>📋 SISTEMA DE REGISTRO INFANTIL - PANEL DE CONTROL</header>
-
-<div class="container">
-    <aside class="sidebar">
-        <button id="btnAbrirRegistro" class="btn-main-registro">➕ REGISTRO BB</button>
-        
-        <button id="btnAbrirClinico" class="btn-main-clinico">💉 VACUNAS</button>
-
-        <div class="info-app">
-            <p>Utilice los botones superiores para gestionar la información del menor. Los datos se vinculan mediante el DNI.</p>
-        </div>
-    </aside>
-
-    <section class="content">
-        <div class="header-tabla">
-            <h2>Panel de Registros</h2>
-            <input type="text" id="buscador" placeholder="Buscar por DNI o Nombre..." onkeyup="filtrarTabla()">
-        </div>
-        <div class="tabla-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>DNI</th>
-                        <th>Nombre</th>
-                        <th>Distrito</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody"></tbody>
-            </table>
-        </div>
-    </section>
-</div>
-
-<div id="modalRegistro" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" id="closeBB">&times;</span>
-        <form id="registroForm">
-            <div class="form-section">
-                <h3>1. Identidad y Parentesco <span id="modoForm" style="float:right; color:#d35400;">(Nuevo)</span></h3>
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>DNI del Niño:</label>
-                        <input type="text" id="dniNino" required maxlength="8" oninput="buscarYValidarDNI()">
-                    </div>
-                    <div class="form-group">
-                        <label>Nombre Completo:</label>
-                        <input type="text" id="nombre" required>
-                    </div>
-                </div>
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Fecha Nacimiento:</label>
-                        <input type="date" id="fechaNacimiento" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Edad Actual:</label>
-                        <input type="text" id="edad" readonly style="background:#f0f0f0;">
-                    </div>
-                </div>
-                <div class="grid-2">
-                    <div class="form-group"><label>Nombre Mamá:</label><input type="text" id="mama"></div>
-                    <div class="form-group"><label>Nombre Papá:</label><input type="text" id="papa"></div>
-                </div>
+        <main id="quiz-app">
+            <div id="question-container" class="active">
+                <h2 id="question-title">Cargando...</h2>
+                <div id="answer-buttons" class="btn-grid"></div>
             </div>
 
-            <div class="form-section">
-                <h3>2. Ubicación y Contacto</h3>
-                <div class="grid-3">
-                    <div class="form-group"><label>Región:</label><select id="region" onchange="cargarProvincias()"><option value="">...</option></select></div>
-                    <div class="form-group"><label>Provincia:</label><select id="provincia" onchange="cargarDistritos()"><option value="">...</option></select></div>
-                    <div class="form-group"><label>Distrito:</label><select id="distrito"><option value="">...</option></select></div>
+            <div id="result-container" class="hidden">
+                <div class="avatar-box">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&accessories=glassRound&clothing=overall&clothingColor=003a70&top=shortHair" alt="Avatar Enfermería" class="avatar-img">
                 </div>
-                <div class="form-group"><label>Dirección / Referencia:</label><input type="text" id="direccion"></div>
-                <div class="grid-2">
-                    <div class="form-group"><label>N° Celular:</label><input type="text" id="celular"></div>
-                    <div class="form-group">
-                        <label>Operador:</label>
-                        <select id="operador">
-                            <option value="Movistar">Movistar</option><option value="Claro">Claro</option>
-                            <option value="Entel">Entel</option><option value="Bitel">Bitel</option>
-                        </select>
-                    </div>
+                <h2>Resultado de la Evaluación</h2>
+                <div class="score-display">
+                    <span id="score-num">0</span><small>/20</small>
                 </div>
+                <p id="feedback-text"></p>
+                <button onclick="location.reload()" class="btn-restart">Intentar de nuevo</button>
             </div>
-
-            <div class="form-section">
-                <h3>3. Datos Clínicos y Nacimiento</h3>
-                <div class="grid-3">
-                    <div class="form-group"><label>Gestación:</label><select id="gestacion"><option value="Única">Única</option><option value="Múltiple">Múltiple</option></select></div>
-                    <div class="form-group"><label>CPN (Cant.):</label><input type="number" id="cpn"></div>
-                    <div class="form-group"><label>EG al Nacer:</label><input type="text" id="egNacer" placeholder="Semanas"></div>
-                </div>
-                <div class="grid-3">
-                    <div class="form-group"><label>Peso Nacer (gr):</label><input type="number" id="pesoNacer"></div>
-                    <div class="form-group"><label>Talla Nacer (cm):</label><input type="number" step="0.1" id="tallaNacer"></div>
-                    <div class="form-group"><label>PC Nacer (cm):</label><input type="number" step="0.1" id="pcNacer"></div>
-                </div>
-                <div class="grid-3">
-                    <div class="form-group"><label>Peso Alta (gr):</label><input type="number" id="pesoAlta"></div>
-                    <div class="form-group"><label>APGAR:</label><input type="text" id="apgar"></div>
-                    <div class="form-group">
-                        <label>G. Sanguíneo:</label>
-                        <select id="grupo">
-                            <option value="O+">O+</option><option value="O-">O-</option><option value="A+">A+</option><option value="B+">B+</option><option value="AB+">AB+</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="grid-2">
-                    <div class="form-group"><label>Lugar Parto:</label><input type="text" id="lugarParto" placeholder="EESS / Domicilio"></div>
-                    <div class="form-group">
-                        <label>Tipo Parto:</label>
-                        <select id="tipoParto"><option value="Eutócico">Eutócico</option><option value="Cesárea">Cesárea</option></select>
-                    </div>
-                </div>
-            </div>
-
-            <button type="submit" id="btnSave" class="btn-save">GUARDAR REGISTRO COMPLETO</button>
-        </form>
+        </main>
     </div>
-</div>
 
-<div id="modalClinico" class="modal">
-    <div class="modal-content modal-wide">
-        <span class="close-modal" id="closeClinico">&times;</span>
-        <h2 style="color: #6f42c1; text-align: center; margin-bottom: 20px;">💉 MÓDULO VACUNAS (Esquema Nacional)</h2>
-        
-        <form id="clinicoForm">
-            <div class="form-section">
-                <h3>1. Búsqueda y Vinculación</h3>
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>DNI del Niño para seguimiento:</label>
-                        <input type="text" id="dniClinico" required maxlength="8" placeholder="Ingrese DNI" oninput="buscarNombrePorDNI()">
-                    </div>
-                    <div class="form-group">
-                        <label>Nombres y Apellidos:</label>
-                        <input type="text" id="nombreClinico" readonly style="background:#f0f0f0;" placeholder="Buscando en Hoja 1...">
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <h3>2. Fecha General y Citas</h3>
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label style="color: #6f42c1;">FECHA DE APLICACIÓN (General):</label>
-                        <input type="date" id="fechaGeneralVacuna">
-                    </div>
-                    <div class="form-group">
-                        <label>Próxima Cita VACUNA:</label>
-                        <input type="date" id="fechaCitaVACUNA">
-                    </div>
-                </div>
-                <p style="font-size: 11px; color: #666; font-style: italic;">* Seleccione la fecha arriba y haga clic sobre la vacuna aplicada para registrarla.</p>
-            </div>
-
-            <div class="form-section">
-                <h3>3. Registro de Vacunas</h3>
-                <div class="grid-4">
-                    <div class="form-group"><label>BCG:</label><input type="text" id="bgc" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>HVB RN:</label><input type="text" id="hvbRn" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>IPV 1:</label><input type="text" id="ipv1" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>IPV 2:</label><input type="text" id="ipv2" class="vax-input" readonly placeholder="---"></div>
-                </div>
-                <div class="grid-4">
-                    <div class="form-group"><label>IPV 3:</label><input type="text" id="ipv3" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>PENTA 1:</label><input type="text" id="penta1" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>PENTA 2:</label><input type="text" id="penta2" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>PENTA 3:</label><input type="text" id="penta3" class="vax-input" readonly placeholder="---"></div>
-                </div>
-                <div class="grid-3">
-                    <div class="form-group"><label>NEUMO 1:</label><input type="text" id="neumo1" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>NEUMO 2:</label><input type="text" id="neumo2" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>NEUMO 3:</label><input type="text" id="neumo3" class="vax-input" readonly placeholder="---"></div>
-                </div>
-                <div class="grid-3">
-                    <div class="form-group"><label>ROTA 1:</label><input type="text" id="rota1" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>ROTA 2:</label><input type="text" id="rota2" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>SPR 1:</label><input type="text" id="spr1" class="vax-input" readonly placeholder="---"></div>
-                </div>
-                <div class="grid-4">
-                    <div class="form-group"><label>SPR 2:</label><input type="text" id="spr2" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>DPT REF 1:</label><input type="text" id="dptRef1" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>DPT REF 2:</label><input type="text" id="dptRef2" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>IPV REF:</label><input type="text" id="ipvRef" class="vax-input" readonly placeholder="---"></div>
-                </div>
-                <div class="grid-4">
-                    <div class="form-group"><label>INFLUENZA 1:</label><input type="text" id="influenza1" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>INFLUENZA 2:</label><input type="text" id="influenza2" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>ANTIAMARÍLICA:</label><input type="text" id="antiamarilica" class="vax-input" readonly placeholder="---"></div>
-                    <div class="form-group"><label>HEPATITIS A:</label><input type="text" id="hepatitisA" class="vax-input" readonly placeholder="---"></div>
-                </div>
-                <div class="grid-1">
-                    <div class="form-group"><label>IPV REF 1:</label><input type="text" id="ipvRef1" class="vax-input" readonly placeholder="---"></div>
-                </div>
-            </div>
-
-            <button type="submit" id="btnSaveClinico" class="btn-save" style="background: #6f42c1;">ACTUALIZAR ESQUEMA DE VACUNAS</button>
-        </form>
-    </div>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
