@@ -3,47 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Misión Epidemiología | PUCP</title>
+    <title>Misión Salud Pública | PUCP</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-viewport">
-        <nav class="game-header">
-            <div class="player-info">
-                <div class="avatar-mini">🩺</div>
-                <span>ENFERMERÍA <strong>PUCP</strong></span>
+    <div class="game-world">
+        <header class="game-nav">
+            <div class="user-profile">
+                <div class="avatar-box">🩺</div>
+                <span>Estudiante <strong>PUCP</strong></span>
             </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <span class="icon">💰</span>
-                    <span id="score-text">Puntos: 0</span>
-                </div>
-                <div id="q-badge" class="stat-item">Estación 1/10</div>
+            <div class="game-stats">
+                <div class="stat"><span class="icon">🪙</span> <span id="points">0</span></div>
+                <div class="stat"><span class="icon">📍</span> <span id="station">1/10</span></div>
             </div>
-        </nav>
+        </header>
 
-        <main class="game-container">
-            <div class="map-progress">
-                <div id="progress-line" class="fill"></div>
+        <div class="map-view">
+            <div class="path-container">
+                <div id="progress-line" class="progress-line"></div>
+                <div class="stations-row" id="map-stations"></div>
+            </div>
+        </div>
+
+        <main class="interaction-zone">
+            <div class="avatar-character">
+                <div class="speech-bubble" id="avatar-text">¡Hola! Soy tu guía. Vamos a recorrer la historia de la epidemiología. ¡Haz clic en una estación!</div>
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Felix&backgroundColor=003a70" alt="Avatar IA" class="avatar-img">
             </div>
 
-            <section id="quiz-screen" class="content-card">
-                <h2 id="question-text">Iniciando misión...</h2>
-                <div id="options-grid" class="options-stack"></div>
-            </section>
-
-            <section id="result-screen" class="content-card hidden">
-                <div class="mission-header">¡MISIÓN CUMPLIDA!</div>
-                <div class="final-avatar">🎓</div>
-                <div class="grade-box">
-                    <small>CALIFICACIÓN FINAL</small>
-                    <div id="final-grade">20</div>
-                </div>
-                <p id="feedback-text"></p>
-                <button onclick="location.reload()" class="btn-action">Nueva Partida</button>
+            <section id="quiz-card" class="quiz-card hidden">
+                <h2 id="q-text"></h2>
+                <div id="options-stack" class="options-stack"></div>
             </section>
         </main>
+
+        <div class="ai-assistant">
+            <div class="chat-header">Asistente IA PUCP</div>
+            <div id="chat-box" class="chat-box">
+                <p class="bot-msg">Pregúntame cualquier duda sobre el examen...</p>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="ai-input" placeholder="Escribe aquí...">
+                <button onclick="askAI()">Enviar</button>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
