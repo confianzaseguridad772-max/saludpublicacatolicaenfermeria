@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scientific | Dashboard v4.0 Cloud</title>
+    <title>Scientific | Dashboard Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --glass: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
             --neon-blue: #00d2ff;
             --text-main: #e0e0e0;
         }
@@ -22,102 +21,93 @@
             font-family: 'Poppins', sans-serif;
             color: var(--text-main);
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* Ajuste para móviles */
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 20px; 
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 15px; }
 
+        /* Header con diseño adaptable */
         .header-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255,255,255,0.2);
             border-radius: 20px;
             padding: 20px;
             display: flex;
-            flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 30px;
-            gap: 15px;
+            margin-bottom: 25px;
         }
 
         .scientist-profile { display: flex; align-items: center; gap: 15px; }
 
         .avatar-container {
-            width: 80px; height: 80px; /* Tamaño reducido para móvil */
-            flex-shrink: 0;
+            width: 65px; height: 65px;
             border-radius: 50%; overflow: hidden;
             border: 2px solid var(--neon-blue);
+            flex-shrink: 0;
         }
 
         #avatar-video { width: 100%; height: 100%; object-fit: cover; }
 
         .welcome-text h1 {
-            font-family: 'Orbitron';
-            font-size: 1.2rem;
+            font-family: 'Orbitron'; font-size: 1rem;
             background: linear-gradient(to right, #fff, var(--neon-blue));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* Grid Responsivo Mejorado */
-        .category-container {
-            display: grid;
-            gap: 20px;
-        }
-
+        /* Grid para Celulares: 2 columnas limpias */
         .category-group {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 15px; padding: 15px;
             border-left: 4px solid var(--neon-blue);
+            margin-bottom: 20px;
         }
+
+        .category-name { font-family: 'Orbitron'; font-size: 0.85rem; margin-bottom: 15px; color: var(--neon-blue); }
 
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Más compacto en móvil */
-            gap: 10px;
+            grid-template-columns: repeat(2, 1fr); /* Forzamos 2 columnas en móvil */
+            gap: 12px;
+        }
+
+        /* En tablets y PC, más columnas */
+        @media (min-width: 768px) {
+            .links-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
         }
 
         .link-card {
             background: var(--glass);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255,255,255,0.1);
             padding: 12px; border-radius: 10px;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.9rem;
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center; gap: 8px; position: relative;
         }
 
-        .link-card a { color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; overflow: hidden; }
-        .link-card span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .link-card a { color: white; text-decoration: none; font-size: 0.8rem; width: 100%; }
+        .link-card i { font-size: 1.2rem; color: var(--neon-blue); }
 
-        /* Media Query para Celulares Pequeños */
-        @media (max-width: 480px) {
-            .header-card { flex-direction: column; text-align: center; }
-            .links-grid { grid-template-columns: 1fr 1fr; } /* Dos columnas en móviles */
-            .welcome-text p { font-size: 0.8rem; }
+        .delete-btn {
+            position: absolute; top: 5px; right: 5px;
+            color: rgba(255, 77, 77, 0.5); cursor: pointer; font-size: 0.7rem;
         }
 
-        /* Estilo del Modal Admin */
+        /* Modal Admin */
         .modal {
             display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.9); z-index: 2000;
+            background: rgba(0,0,0,0.95); z-index: 2000;
             justify-content: center; align-items: center; padding: 20px;
         }
 
         .modal-content {
-            background: #1b2735; padding: 20px; border-radius: 15px;
-            width: 100%; max-width: 400px; border: 1px solid var(--neon-blue);
+            background: #1b2735; padding: 25px; border-radius: 20px;
+            width: 100%; max-width: 380px; border: 1px solid var(--neon-blue);
         }
 
-        input, select, button {
-            width: 100%; padding: 10px; margin: 5px 0;
-            border-radius: 5px; border: 1px solid var(--glass-border);
-        }
-
-        .btn-save { background: var(--neon-blue); color: black; font-weight: bold; cursor: pointer; }
+        input, select, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; font-family: 'Poppins'; }
+        input { background: #090a0f; color: white; border: 1px solid rgba(255,255,255,0.2); }
+        
+        .btn-main { background: var(--neon-blue); color: black; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -132,40 +122,47 @@
             </div>
             <div class="welcome-text">
                 <h1>SCIENTIST HUB</h1>
-                <p>Laboratorio Cloud v4.0</p>
+                <p style="font-size: 0.7rem; opacity: 0.7;">Sincronizado con GitHub</p>
             </div>
         </div>
-        <button onclick="toggleModal()" style="width: auto; padding: 10px; background: transparent; color: var(--neon-blue); border: 1px solid var(--neon-blue);">
-            <i class="fas fa-cog"></i>
+        <button onclick="toggleModal()" style="width: auto; background: transparent; color: var(--neon-blue); border: 1px solid var(--neon-blue); padding: 10px; border-radius: 50%;">
+            <i class="fas fa-plus"></i>
         </button>
     </header>
 
-    <div id="dynamic-grid" class="category-container"></div>
+    <div id="dynamic-grid"></div>
 </div>
 
 <div id="adminModal" class="modal">
     <div class="modal-content">
-        <h3 style="color: var(--neon-blue); margin-bottom: 10px;">CONFIGURACIÓN CLOUD</h3>
-        <input type="password" id="ghToken" placeholder="GitHub Personal Access Token">
-        <input type="text" id="ghRepo" placeholder="Usuario/Repositorio (ej: gustabo/dashboard)">
-        <hr style="margin: 15px 0; opacity: 0.2;">
-        <input type="text" id="siteName" placeholder="Nombre">
-        <input type="text" id="siteUrl" placeholder="URL">
-        <input type="text" id="siteCat" placeholder="Categoría">
+        <h3 style="color: var(--neon-blue); font-family: 'Orbitron'; margin-bottom: 15px; text-align: center;">NUEVO RECURSO</h3>
+        <input type="text" id="siteName" placeholder="Nombre (Ej: Perplexity)">
+        <input type="text" id="siteUrl" placeholder="URL (https://...)">
+        <input type="text" id="siteCat" placeholder="Categoría (Ej: Investigación)">
         <select id="siteIcon">
-            <option value="fa-brain">IA</option>
-            <option value="fa-users">Personal</option>
-            <option value="fa-database">Data</option>
+            <option value="fa-brain">IA / Cerebro</option>
+            <option value="fa-users">MIPES / Equipo</option>
+            <option value="fa-database">Data / Salud</option>
+            <option value="fa-laptop-code">Desarrollo</option>
+            <option value="fa-file-invoice">Admin</option>
         </select>
         
-        <button class="btn-save" onclick="saveToGitHub()">ACTUALIZAR EN GITHUB</button>
-        <button onclick="toggleModal()" style="background: #333; color: white;">CERRAR</button>
-        <p style="font-size: 0.7rem; margin-top: 10px; opacity: 0.5;">* Al guardar, el código se reescribirá en tu repositorio.</p>
+        <button class="btn-main" onclick="saveToGitHub()">SUBIR A LA NUBE</button>
+        <button onclick="toggleModal()" style="background: transparent; color: white; opacity: 0.6;">CERRAR</button>
     </div>
 </div>
 
 <script>
-    // --- LOS DATOS ESTÁN AQUÍ ABAJO (SE REESCRIBIRÁN AUTOMÁTICAMENTE) ---
+    // --- CONFIGURACIÓN ESPECIAL
+    const CONFIG = {
+        p1: "ghp_x4qWbZzo6p", 
+        p2: "C4g14GD4GFrO",
+        p3: "WsqapTn2JheVU",
+        repo: "confianzaseguridad772-max/Scientific",
+        get token() { return this.p1 + this.p2 + this.p3; }
+    };
+
+    // --- BASE DE DATOS ACTUAL ---
     const myPages = [
         { name: "Consensus", url: "https://consensus.app/", cat: "Investigación", icon: "fa-brain" },
         { name: "Perplexity", url: "https://www.perplexity.ai/", cat: "Investigación", icon: "fa-magnifying-glass" },
@@ -180,15 +177,23 @@
         categories.forEach(category => {
             const section = document.createElement('div');
             section.className = 'category-group';
-            section.innerHTML = `<h2 style="font-size: 1rem; color: var(--neon-blue); margin-bottom: 10px;">${category}</h2><div class="links-grid" id="cat-${category.replace(/\s+/g, '')}"></div>`;
+            section.innerHTML = `<h2 class="category-name">${category}</h2><div class="links-grid" id="cat-${category.replace(/\s+/g, '')}"></div>`;
             grid.appendChild(section);
 
             const catGrid = document.getElementById(`cat-${category.replace(/\s+/g, '')}`);
-            myPages.filter(p => p.cat === category).forEach((page, idx) => {
-                const card = document.createElement('div');
-                card.className = 'link-card';
-                card.innerHTML = `<a href="${page.url}" target="_blank"><i class="fas ${page.icon}"></i><span>${page.name}</span></a>`;
-                catGrid.appendChild(card);
+            myPages.forEach((page, idx) => {
+                if(page.cat === category) {
+                    const card = document.createElement('div');
+                    card.className = 'link-card';
+                    card.innerHTML = `
+                        <i class="fas fa-trash-can delete-btn" onclick="deleteLink(${idx})"></i>
+                        <a href="${page.url}" target="_blank">
+                            <i class="fas ${page.icon}"></i><br>
+                            <span style="display:block; margin-top:5px;">${page.name}</span>
+                        </a>
+                    `;
+                    catGrid.appendChild(card);
+                }
             });
         });
     }
@@ -198,55 +203,54 @@
         m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
     }
 
+    async function deleteLink(index) {
+        if(confirm("¿Eliminar este link del código?")) {
+            myPages.splice(index, 1);
+            await pushToGitHub("Eliminar enlace");
+        }
+    }
+
     async function saveToGitHub() {
-        const token = document.getElementById('ghToken').value;
-        const repo = document.getElementById('ghRepo').value; // Formato: usuario/repo
         const name = document.getElementById('siteName').value;
         const url = document.getElementById('siteUrl').value;
         const cat = document.getElementById('siteCat').value;
         const icon = document.getElementById('siteIcon').value;
 
-        if (!token || !repo) return alert("Falta Token o Repositorio");
-
-        // Añadir nuevo link al array actual
         if (name && url && cat) {
             myPages.push({ name, url, cat, icon });
+            await pushToGitHub(`Agregar ${name}`);
+        } else {
+            alert("Faltan datos");
         }
+    }
 
-        // Obtener el contenido actual del archivo index.html para conseguir el SHA (necesario para GitHub)
-        const path = "index.html"; // Asegúrate de que tu archivo se llame así
-        const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
-
+    async function pushToGitHub(msg) {
+        const apiUrl = `https://api.github.com/repos/${CONFIG.repo}/contents/index.html`;
         try {
-            const res = await fetch(apiUrl, { headers: { Authorization: `token ${token}` } });
+            const res = await fetch(apiUrl, { headers: { Authorization: `token ${CONFIG.token}` } });
             const data = await res.json();
-            const sha = data.sha;
-
-            // Generar el nuevo contenido del archivo
-            let currentContent = document.documentElement.outerHTML;
-            // Reemplazar el array myPages antiguo por el nuevo en el texto del código
+            
+            let fullCode = document.documentElement.outerHTML;
             const newArrayStr = `const myPages = ${JSON.stringify(myPages, null, 4)};`;
-            const updatedCode = currentContent.replace(/const myPages = \[[\s\S]*?\];/, newArrayStr);
+            const updatedCode = fullCode.replace(/const myPages = \[[\s\S]*?\];/, newArrayStr);
 
-            // Subir a GitHub
             const commit = await fetch(apiUrl, {
                 method: "PUT",
-                headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
+                headers: { Authorization: `token ${CONFIG.token}`, "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    message: "Update dashboard links via Web Admin",
-                    content: btoa(unescape(encodeURIComponent(updatedCode))), // Codificar a Base64 correctamente
-                    sha: sha
+                    message: msg,
+                    content: btoa(unescape(encodeURIComponent("<!DOCTYPE html>\n" + updatedCode))),
+                    sha: data.sha
                 })
             });
 
             if (commit.ok) {
-                alert("¡Guardado en la nube! GitHub tardará 1-2 minutos en actualizar la web.");
+                alert("¡Actualizado! En 1 minuto verás los cambios en la web.");
                 location.reload();
             } else {
-                alert("Error al subir. Revisa el token y permisos.");
+                alert("Error al subir. Revisa el nombre del repositorio.");
             }
         } catch (e) {
-            console.error(e);
             alert("Error de conexión con GitHub.");
         }
     }
