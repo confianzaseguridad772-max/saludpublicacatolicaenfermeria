@@ -3,132 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Panel de Enlaces</title>
+    <title>Scientific Hub | Dashboard v2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --bg-color: #f4f7f6;
-            --text-color: #333;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --neon-blue: #00d2ff;
+            --neon-purple: #9d50bb;
+            --text-main: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Fondo Animado de Partículas (Simulado) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            z-index: -1;
+            opacity: 0.3;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        h1 {
-            text-align: center;
-            color: var(--primary-color);
+        /* Header & Avatar Section */
+        .header-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
-        .category-section {
-            margin-bottom: 30px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        .scientist-profile {
+            display: flex;
+            align-items: center;
+            gap: 25px;
         }
 
-        .category-title {
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
-            margin-top: 0;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            font-size: 1.2rem;
+        .avatar-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            border: 3px solid white;
+            animation: float 3s ease-in-out infinite;
         }
 
-        .button-grid {
+        /* Animación del saludo */
+        .waving-hand {
+            display: inline-block;
+            animation: wave 2s infinite;
+            transform-origin: 70% 70%;
+        }
+
+        @keyframes wave {
+            0% { transform: rotate( 0.0deg) }
+           10% { transform: rotate(14.0deg) }
+           20% { transform: rotate(-8.0deg) }
+           30% { transform: rotate(14.0deg) }
+           40% { transform: rotate(-4.0deg) }
+           50% { transform: rotate(10.0deg) }
+           60% { transform: rotate( 0.0deg) }
+          100% { transform: rotate( 0.0deg) }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .welcome-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #fff, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Grid de Categorías */
+        .category-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+            gap: 30px;
         }
 
-        .btn-link {
-            display: block;
-            text-align: center;
-            background-color: var(--primary-color);
+        .category-group {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid var(--neon-blue);
+        }
+
+        .category-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        /* Botones de Enlace Modernos */
+        .link-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 12px;
             color: white;
             text-decoration: none;
-            padding: 12px 10px;
-            border-radius: 5px;
-            transition: transform 0.2s, background-color 0.2s;
-            font-weight: 500;
-            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
             overflow: hidden;
-            text-overflow: ellipsis;
         }
 
-        .btn-link:hover {
-            background-color: var(--accent-color);
-            transform: translateY(-3px);
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .link-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+
+        /* Botón WhatsApp Científico */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(-3deg);
+            background: #20ba5a;
+        }
+
+        .pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: inherit;
+            z-index: -1;
+            animation: pulse-animation 2s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .header-card { flex-direction: column; text-align: center; }
+            .scientist-profile { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Mis Marcadores Personales</h1>
-    <div id="dashboard">
+    <header class="header-card">
+        <div class="scientist-profile">
+            <div class="avatar-container">
+                👨‍🔬
+                <span class="waving-hand" style="position: absolute; bottom: 5px; right: -5px; font-size: 30px;">👋</span>
+            </div>
+            <div class="welcome-text">
+                <h1>SCIENTIST HUB</h1>
+                <p>Bienvenido al laboratorio digital. Tus herramientas están listas.</p>
+            </div>
         </div>
+    </header>
+
+    <div id="dynamic-grid" class="category-container"></div>
 </div>
 
+<a href="https://wa.me/51956113989?text=Hola,%20solicito%20asistencia%20técnica" class="whatsapp-float" target="_blank">
+    <div class="pulse"></div>
+    <i class="fab fa-whatsapp" style="font-size: 24px;"></i>
+    <span>CONTACTO DIRECTO</span>
+</a>
+
 <script>
-    // --- CONFIGURACIÓN: AGREGA TUS ENLACES AQUÍ ---
-    const sites = [
-        { name: "Google", url: "https://google.com", category: "Buscadores" },
-        { name: "YouTube", url: "https://youtube.com", category: "Entretenimiento" },
-        { name: "GitHub", url: "https://github.com", category: "Desarrollo" },
-        { name: "Stack Overflow", url: "https://stackoverflow.com", category: "Desarrollo" },
-        { name: "Gmail", url: "https://mail.google.com", category: "Trabajo" },
-        { name: "Noticias Salud", url: "https://who.int", category: "Salud" }
+    // --- BASE DE DATOS DE PÁGINAS ---
+    const myPages = [
+        { name: "Repositorio Salud", url: "https://consensus.app/", cat: "Investigación", icon: "fa-microscope" },
+        { name: "Data Pública", url: "https://www.perplexity.ai/", cat: "Investigación", icon: "fa-database" },
+        { name: "Gestión Hospitalaria", url: "https://confianzaseguridad772-max.github.io/Asistencia/", cat: "MIPES", icon: "fa-hospital" },
+        { name: "Nómina Digital", url: "#", cat: "Administración", icon: "fa-file-invoice" },
+        { name: "SPSS Statistics", url: "#", cat: "Herramientas", icon: "fa-chart-line" },
+        { name: "Google Scholar", url: "#", cat: "Herramientas", icon: "fa-graduation-cap" },
+        { name: "Configuración PWA", url: "#", cat: "Desarrollo", icon: "fa-code" }
     ];
 
-    function renderDashboard() {
-        const dashboard = document.getElementById('dashboard');
-        const categories = [...new Set(sites.map(s => s.category))];
+    function initDashboard() {
+        const grid = document.getElementById('dynamic-grid');
+        const categories = [...new Set(myPages.map(p => p.cat))];
 
-        categories.forEach(cat => {
-            // Crear sección de categoría
+        categories.forEach(category => {
             const section = document.createElement('div');
-            section.className = 'category-section';
+            section.className = 'category-group';
             
-            const title = document.createElement('h2');
-            title.className = 'category-title';
-            title.innerText = cat;
-            section.appendChild(title);
+            section.innerHTML = `
+                <h2 class="category-name">${category}</h2>
+                <div class="links-grid" id="cat-${category}"></div>
+            `;
+            grid.appendChild(section);
 
-            // Crear contenedor de botones
-            const grid = document.createElement('div');
-            grid.className = 'button-grid';
-
-            // Filtrar y agregar botones de esta categoría
-            sites.filter(s => s.category === cat).forEach(site => {
-                const link = document.createElement('a');
-                link.href = site.url;
-                link.className = 'btn-link';
-                link.innerText = site.name;
-                link.target = "_blank"; // Abre en pestaña nueva
-                grid.appendChild(link);
+            const catGrid = document.getElementById(`cat-${category}`);
+            myPages.filter(p => p.cat === category).forEach(page => {
+                const card = document.createElement('a');
+                card.href = page.url;
+                card.className = 'link-card';
+                card.target = "_blank";
+                card.innerHTML = `
+                    <i class="fas ${page.icon}"></i>
+                    <span>${page.name}</span>
+                `;
+                catGrid.appendChild(card);
             });
-
-            section.appendChild(grid);
-            dashboard.appendChild(section);
         });
     }
 
-    // Ejecutar al cargar la página
-    renderDashboard();
+    window.onload = initDashboard;
 </script>
 
 </body>
