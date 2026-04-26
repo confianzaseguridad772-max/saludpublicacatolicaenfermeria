@@ -3,170 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scientific | Dashboard Pro</title>
+    <title>Scientific Hub | GOM</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.1);
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
             --neon-blue: #00d2ff;
-            --text-main: #e0e0e0;
+            --neon-purple: #9d50bb;
+            --text-main: #f0f0f0;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
             font-family: 'Poppins', sans-serif;
             color: var(--text-main);
             min-height: 100vh;
+            padding-bottom: 50px;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 15px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
 
-        /* Header con diseño adaptable */
+        /* Header Estilo Sci-Fi */
         .header-card {
             background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
             padding: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
 
-        .scientist-profile { display: flex; align-items: center; gap: 15px; }
-
-        .avatar-container {
-            width: 65px; height: 65px;
+        .profile { display: flex; align-items: center; gap: 15px; }
+        .avatar-ring {
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+        }
+        .avatar-box {
+            width: 100%; height: 100%;
             border-radius: 50%; overflow: hidden;
-            border: 2px solid var(--neon-blue);
-            flex-shrink: 0;
+            background: #000;
         }
-
         #avatar-video { width: 100%; height: 100%; object-fit: cover; }
 
-        .welcome-text h1 {
-            font-family: 'Orbitron'; font-size: 1rem;
+        .title-box h1 {
+            font-family: 'Orbitron'; font-size: 1.1rem; letter-spacing: 1px;
             background: linear-gradient(to right, #fff, var(--neon-blue));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* Grid para Celulares: 2 columnas limpias */
-        .category-group {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px; padding: 15px;
-            border-left: 4px solid var(--neon-blue);
-            margin-bottom: 20px;
-        }
-
-        .category-name { font-family: 'Orbitron'; font-size: 0.85rem; margin-bottom: 15px; color: var(--neon-blue); }
-
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Forzamos 2 columnas en móvil */
-            gap: 12px;
-        }
-
-        /* En tablets y PC, más columnas */
-        @media (min-width: 768px) {
-            .links-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
-        }
-
-        .link-card {
+        /* Categorías Colapsables */
+        .category-wrapper {
+            margin-bottom: 15px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
             background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px; border-radius: 10px;
-            display: flex; flex-direction: column; align-items: center;
-            text-align: center; gap: 8px; position: relative;
         }
 
-        .link-card a { color: white; text-decoration: none; font-size: 0.8rem; width: 100%; }
-        .link-card i { font-size: 1.2rem; color: var(--neon-blue); }
+        .category-header {
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: rgba(255,255,255,0.03);
+            transition: 0.3s;
+        }
+
+        .category-header:active { background: rgba(255,255,255,0.1); }
+
+        .category-title {
+            font-family: 'Orbitron'; font-size: 0.85rem;
+            color: var(--neon-blue); display: flex; align-items: center; gap: 10px;
+        }
+
+        .chevron { transition: transform 0.4s; opacity: 0.5; }
+        .category-wrapper.active .chevron { transform: rotate(180deg); }
+
+        .category-content {
+            display: none;
+            padding: 15px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            border-top: 1px solid var(--glass-border);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .category-wrapper.active .category-content { display: grid; }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tarjetas de Enlaces */
+        .link-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 15px;
+            position: relative;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .link-card:active { transform: scale(0.95); border-color: var(--neon-blue); }
+
+        .link-card a { text-decoration: none; color: white; font-size: 0.75rem; font-weight: 500; }
+        .link-card i.main-icon { 
+            font-size: 1.5rem; margin-bottom: 8px; 
+            background: linear-gradient(135deg, #fff, var(--neon-blue));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
 
         .delete-btn {
-            position: absolute; top: 5px; right: 5px;
-            color: rgba(255, 77, 77, 0.5); cursor: pointer; font-size: 0.7rem;
+            position: absolute; top: 8px; right: 8px;
+            color: #ff4d4d; opacity: 0.3; font-size: 0.8rem; padding: 5px;
         }
 
-        /* Modal Admin */
+        /* Botón Flotante para Agregar */
+        .fab {
+            position: fixed; bottom: 25px; right: 25px;
+            width: 55px; height: 55px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 20px rgba(0,210,255,0.3);
+            border: none; color: white; font-size: 1.2rem; cursor: pointer; z-index: 100;
+        }
+
+        /* Modal Mejorado */
         .modal {
             display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.95); z-index: 2000;
-            justify-content: center; align-items: center; padding: 20px;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+            z-index: 2000; justify-content: center; align-items: flex-end;
         }
 
         .modal-content {
-            background: #1b2735; padding: 25px; border-radius: 20px;
-            width: 100%; max-width: 380px; border: 1px solid var(--neon-blue);
+            background: #111827; width: 100%; max-width: 500px;
+            padding: 30px; border-radius: 30px 30px 0 0;
+            border-top: 2px solid var(--neon-blue);
+            animation: modalUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        input, select, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; font-family: 'Poppins'; }
-        input { background: #090a0f; color: white; border: 1px solid rgba(255,255,255,0.2); }
-        
-        .btn-main { background: var(--neon-blue); color: black; font-weight: bold; cursor: pointer; }
+        @keyframes modalUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+        input, select {
+            width: 100%; padding: 14px; margin-bottom: 12px;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+            border-radius: 12px; color: white; font-family: 'Poppins';
+        }
+
+        .save-btn {
+            background: var(--neon-blue); color: #000; font-weight: 700;
+            border: none; padding: 16px; border-radius: 12px; width: 100%; margin-top: 10px;
+        }
+
     </style>
 </head>
 <body>
 
 <div class="container">
     <header class="header-card">
-        <div class="scientist-profile">
-            <div class="avatar-container">
-                <video id="avatar-video" loop muted playsinline autoplay>
-                    <source src="avatar.mp4" type="video/mp4">
-                </video>
+        <div class="profile">
+            <div class="avatar-ring">
+                <div class="avatar-box">
+                    <video id="avatar-video" loop muted playsinline autoplay>
+                        <source src="avatar.mp4" type="video/mp4">
+                    </video>
+                </div>
             </div>
-            <div class="welcome-text">
-                <h1>SCIENTIST HUB</h1>
-                <p style="font-size: 0.7rem; opacity: 0.7;">Sincronizado con GitHub</p>
+            <div class="title-box">
+                <h1>GOM SCIENTIFIC</h1>
+                <p style="font-size: 0.6rem; opacity: 0.6; text-transform: uppercase;">Cloud Database Active</p>
             </div>
         </div>
-        <button onclick="toggleModal()" style="width: auto; background: transparent; color: var(--neon-blue); border: 1px solid var(--neon-blue); padding: 10px; border-radius: 50%;">
-            <i class="fas fa-plus"></i>
-        </button>
+        <i class="fas fa-signal" style="color: var(--neon-blue); font-size: 0.8rem;"></i>
     </header>
 
     <div id="dynamic-grid"></div>
 </div>
 
+<button class="fab" onclick="toggleModal()"><i class="fas fa-plus"></i></button>
+
 <div id="adminModal" class="modal">
     <div class="modal-content">
-        <h3 style="color: var(--neon-blue); font-family: 'Orbitron'; margin-bottom: 15px; text-align: center;">NUEVO RECURSO</h3>
-        <input type="text" id="siteName" placeholder="Nombre (Ej: Perplexity)">
+        <h2 style="font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 20px; text-align: center;">AÑADIR ACCESO</h2>
+        <input type="text" id="siteName" placeholder="Nombre del sitio">
         <input type="text" id="siteUrl" placeholder="URL (https://...)">
-        <input type="text" id="siteCat" placeholder="Categoría (Ej: Investigación)">
+        <input type="text" id="siteCat" placeholder="Categoría (Ej: Salud, MIPES)">
         <select id="siteIcon">
-            <option value="fa-brain">Cerebro</option>
-            <option value="fa-users">Equipo</option>
-            <option value="fa-database">Data</option>
-            <option value="fa-Boy-code">Niño</option>
-            <option value="fa-file-invoice">Admin</option>
+            <option value="fa-flask-vial">Laboratorio</option>
+            <option value="fa-stethoscope">Salud / Médico</option>
+            <option value="fa-brain">Inteligencia Artificial</option>
+            <option value="fa-users-gear">Gestión / MIPES</option>
+            <option value="fa-child-reaching">Pediatría / Niños</option>
+            <option value="fa-globe">Web General</option>
         </select>
-        
-        <button class="btn-main" onclick="saveToGitHub()">SUBIR A LA NUBE</button>
-        <button onclick="toggleModal()" style="background: transparent; color: white; opacity: 0.6;">CERRAR</button>
+        <button class="save-btn" onclick="saveToGitHub()">SINCRONIZAR AHORA</button>
+        <button onclick="toggleModal()" style="background:transparent; color:white; width:100%; margin-top:15px; border:none; opacity:0.5;">Cancelar</button>
     </div>
 </div>
 
 <script>
-    // --- CONFIGURACIÓN ESPECIAL
+    // --- CONFIGURACIÓN UNICA ---
     const CONFIG = {
-        p1: "ghp_x4qWbZzo6p", 
-        p2: "C4g14GD4GFrO",
-        p3: "WsqapTn2JheVU",
+        p1: "ghp_As2nvsum", 
+        p2: "eyEdyYjaHwx4N45V",
+        p3: "zdOkE00v4jka",
         repo: "confianzaseguridad772-max/pagGOM",
         get token() { return this.p1 + this.p2 + this.p3; }
     };
 
-    // --- BASE DE DATOS ACTUAL ---
+    // --- DATOS DE TUS PÁGINAS ---
     const myPages = [
         { name: "Consensus", url: "https://consensus.app/", cat: "Investigación", icon: "fa-brain" },
         { name: "Perplexity", url: "https://www.perplexity.ai/", cat: "Investigación", icon: "fa-magnifying-glass" },
-        { name: "Gp:Asistencia", url: "https://confianzaseguridad772-max.github.io/Asistencia/", cat: "MIPES", icon: "fa-users" }
+        { name: "Gp:Asistencia", url: "https://confianzaseguridad772-max.github.io/Asistencia/", cat: "MIPES", icon: "fa-users-gear" }
     ];
 
     function renderDashboard() {
@@ -175,24 +238,33 @@
         const categories = [...new Set(myPages.map(p => p.cat))];
 
         categories.forEach(category => {
-            const section = document.createElement('div');
-            section.className = 'category-group';
-            section.innerHTML = `<h2 class="category-name">${category}</h2><div class="links-grid" id="cat-${category.replace(/\s+/g, '')}"></div>`;
-            grid.appendChild(section);
+            const wrapper = document.createElement('div');
+            wrapper.className = 'category-wrapper active'; // Empiezan abiertas por defecto
+            
+            const catId = category.replace(/\s+/g, '');
+            
+            wrapper.innerHTML = `
+                <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
+                    <div class="category-title"><i class="fas fa-folder-open"></i> ${category}</div>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </div>
+                <div class="category-content" id="cat-${catId}"></div>
+            `;
+            grid.appendChild(wrapper);
 
-            const catGrid = document.getElementById(`cat-${category.replace(/\s+/g, '')}`);
+            const contentBox = document.getElementById(`cat-${catId}`);
             myPages.forEach((page, idx) => {
                 if(page.cat === category) {
                     const card = document.createElement('div');
                     card.className = 'link-card';
                     card.innerHTML = `
-                        <i class="fas fa-trash-can delete-btn" onclick="deleteLink(${idx})"></i>
+                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(${idx})"></i>
                         <a href="${page.url}" target="_blank">
-                            <i class="fas ${page.icon}"></i><br>
-                            <span style="display:block; margin-top:5px;">${page.name}</span>
+                            <i class="fas ${page.icon} main-icon"></i><br>
+                            <span>${page.name}</span>
                         </a>
                     `;
-                    catGrid.appendChild(card);
+                    contentBox.appendChild(card);
                 }
             });
         });
@@ -204,7 +276,7 @@
     }
 
     async function deleteLink(index) {
-        if(confirm("¿Eliminar este link del código?")) {
+        if(confirm("¿Eliminar este acceso permanentemente?")) {
             myPages.splice(index, 1);
             await pushToGitHub("Eliminar enlace");
         }
@@ -218,9 +290,9 @@
 
         if (name && url && cat) {
             myPages.push({ name, url, cat, icon });
-            await pushToGitHub(`Agregar ${name}`);
+            await pushToGitHub(`Añadido: ${name}`);
         } else {
-            alert("Faltan datos");
+            alert("Completa todos los campos");
         }
     }
 
@@ -245,13 +317,13 @@
             });
 
             if (commit.ok) {
-                alert("¡Actualizado!");
+                alert("¡Sincronización exitosa!");
                 location.reload();
             } else {
-                alert("Error al subir. Revisa el nombre del repositorio.");
+                alert("Error de permisos. Verifica el token.");
             }
         } catch (e) {
-            alert("Error de conexión con GitHub.");
+            alert("Error de conexión.");
         }
     }
 
