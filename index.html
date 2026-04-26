@@ -16,11 +16,7 @@
             --text-main: #e0e0e0;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
@@ -30,7 +26,6 @@
             overflow-x: hidden;
         }
 
-        /* Fondo Animado de Partículas (Simulado) */
         body::before {
             content: "";
             position: fixed;
@@ -46,7 +41,6 @@
             padding: 40px 20px;
         }
 
-        /* Header & Avatar Section */
         .header-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
@@ -66,41 +60,30 @@
             gap: 25px;
         }
 
+        /* Avatar con Video */
         .avatar-container {
             position: relative;
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            width: 120px;
+            height: 120px;
+            background: black;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 50px;
-            border: 3px solid white;
-            animation: float 3s ease-in-out infinite;
+            overflow: hidden; /* Corta el video en forma de círculo */
+            border: 3px solid var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-blue);
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        /* Animación del saludo */
-        .waving-hand {
-            display: inline-block;
-            animation: wave 2s infinite;
-            transform-origin: 70% 70%;
+        .avatar-container:hover {
+            transform: scale(1.1);
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 20px var(--neon-purple);
         }
 
-        @keyframes wave {
-            0% { transform: rotate( 0.0deg) }
-           10% { transform: rotate(14.0deg) }
-           20% { transform: rotate(-8.0deg) }
-           30% { transform: rotate(14.0deg) }
-           40% { transform: rotate(-4.0deg) }
-           50% { transform: rotate(10.0deg) }
-           60% { transform: rotate( 0.0deg) }
-          100% { transform: rotate( 0.0deg) }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        #avatar-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Asegura que el video llene el círculo */
         }
 
         .welcome-text h1 {
@@ -111,11 +94,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Grid de Categorías */
-        .category-container {
-            display: grid;
-            gap: 30px;
-        }
+        .category-container { display: grid; gap: 30px; }
 
         .category-group {
             background: rgba(255, 255, 255, 0.03);
@@ -138,7 +117,6 @@
             gap: 15px;
         }
 
-        /* Botones de Enlace Modernos */
         .link-card {
             background: var(--glass);
             border: 1px solid var(--glass-border);
@@ -150,31 +128,18 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .link-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-
         .link-card:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
+            transform: translateY(-5px);
             border-color: var(--neon-blue);
             box-shadow: 0 0 15px var(--neon-blue);
         }
 
-        .link-card:hover::before {
-            left: 100%;
-        }
-
-        /* Botón WhatsApp Científico */
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
@@ -193,15 +158,9 @@
             transition: 0.3s;
         }
 
-        .whatsapp-float:hover {
-            transform: scale(1.1) rotate(-3deg);
-            background: #20ba5a;
-        }
-
         .pulse {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             background: inherit;
             border-radius: inherit;
             z-index: -1;
@@ -224,9 +183,11 @@
 <div class="container">
     <header class="header-card">
         <div class="scientist-profile">
-            <div class="avatar-container">
-                👨‍🔬
-                <span class="waving-hand" style="position: absolute; bottom: 5px; right: -5px; font-size: 30px;">👋</span>
+            <div class="avatar-container" onmouseover="playAvatar()" onmouseout="muteAvatar()">
+                <video id="avatar-video" loop muted playsinline>
+                    <source src="avatar.mp4" type="video/mp4">
+                    Tu navegador no soporta videos.
+                </video>
             </div>
             <div class="welcome-text">
                 <h1>SCIENTIST HUB</h1>
@@ -245,11 +206,23 @@
 </a>
 
 <script>
-    // --- BASE DE DATOS DE PÁGINAS ---
+    const video = document.getElementById('avatar-video');
+
+    // El video inicia muteado y en pausa por políticas de navegador
+    function playAvatar() {
+        video.muted = false; // Activa el sonido
+        video.play();       // Inicia reproducción
+    }
+
+    function muteAvatar() {
+        video.muted = true;  // Silencia al salir el mouse
+        // Opcional: video.pause(); si prefieres que se detenga
+    }
+
     const myPages = [
-        { name: "Repositorio Salud", url: "https://consensus.app/", cat: "Investigación", icon: "fa-microscope" },
-        { name: "Data Pública", url: "https://www.perplexity.ai/", cat: "Investigación", icon: "fa-database" },
-        { name: "Gestión Hospitalaria", url: "https://confianzaseguridad772-max.github.io/Asistencia/", cat: "MIPES", icon: "fa-hospital" },
+        { name: "Consensus", url: "https://consensus.app/", cat: "Investigación", icon: "fa-cerebro" },
+        { name: "Perplexity", url: "https://www.perplexity.ai/", cat: "Investigación", icon: "fa-database" },
+        { name: "Gp:Asistencia", url: "https://confianzaseguridad772-max.github.io/Asistencia/", cat: "MIPES", icon: "fa-grupo" },
         { name: "Nómina Digital", url: "#", cat: "Administración", icon: "fa-file-invoice" },
         { name: "SPSS Statistics", url: "#", cat: "Herramientas", icon: "fa-chart-line" },
         { name: "Google Scholar", url: "#", cat: "Herramientas", icon: "fa-graduation-cap" },
@@ -263,7 +236,6 @@
         categories.forEach(category => {
             const section = document.createElement('div');
             section.className = 'category-group';
-            
             section.innerHTML = `
                 <h2 class="category-name">${category}</h2>
                 <div class="links-grid" id="cat-${category}"></div>
