@@ -3,53 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Misión Salud Pública | PUCP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>Mi Panel de Enlaces</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .category-section {
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .category-title {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .btn-link {
+            display: block;
+            text-align: center;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px 10px;
+            border-radius: 5px;
+            transition: transform 0.2s, background-color 0.2s;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .btn-link:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+    </style>
 </head>
 <body>
-    <div class="game-world">
-        <header class="game-nav">
-            <div class="user-profile">
-                <div class="avatar-box">🩺</div>
-                <span>Estudiante <strong>PUCP</strong></span>
-            </div>
-            <div class="game-stats">
-                <div class="stat"><span class="icon">🪙</span> <span id="points">0</span></div>
-                <div class="stat"><span class="icon">📍</span> <span id="station">1/10</span></div>
-            </div>
-        </header>
 
-        <div class="map-view">
-            <div class="path-container">
-                <div id="progress-line" class="progress-line"></div>
-                <div class="stations-row" id="map-stations"></div>
-            </div>
+<div class="container">
+    <h1>Mis Marcadores Personales</h1>
+    <div id="dashboard">
         </div>
+</div>
 
-        <main class="interaction-zone">
-            <div class="avatar-character">
-                <div class="speech-bubble" id="avatar-text">¡Hola! Soy tu guía. Vamos a recorrer la historia de la epidemiología. ¡Haz clic en una estación!</div>
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Felix&backgroundColor=003a70" alt="Avatar IA" class="avatar-img">
-            </div>
+<script>
+    // --- CONFIGURACIÓN: AGREGA TUS ENLACES AQUÍ ---
+    const sites = [
+        { name: "Google", url: "https://google.com", category: "Buscadores" },
+        { name: "YouTube", url: "https://youtube.com", category: "Entretenimiento" },
+        { name: "GitHub", url: "https://github.com", category: "Desarrollo" },
+        { name: "Stack Overflow", url: "https://stackoverflow.com", category: "Desarrollo" },
+        { name: "Gmail", url: "https://mail.google.com", category: "Trabajo" },
+        { name: "Noticias Salud", url: "https://who.int", category: "Salud" }
+    ];
 
-            <section id="quiz-card" class="quiz-card hidden">
-                <h2 id="q-text"></h2>
-                <div id="options-stack" class="options-stack"></div>
-            </section>
-        </main>
+    function renderDashboard() {
+        const dashboard = document.getElementById('dashboard');
+        const categories = [...new Set(sites.map(s => s.category))];
 
-        <div class="ai-assistant">
-            <div class="chat-header">Asistente IA PUCP</div>
-            <div id="chat-box" class="chat-box">
-                <p class="bot-msg">Pregúntame cualquier duda sobre el examen...</p>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" id="ai-input" placeholder="Escribe aquí...">
-                <button onclick="askAI()">Enviar</button>
-            </div>
-        </div>
-    </div>
-    <script src="script.js"></script>
+        categories.forEach(cat => {
+            // Crear sección de categoría
+            const section = document.createElement('div');
+            section.className = 'category-section';
+            
+            const title = document.createElement('h2');
+            title.className = 'category-title';
+            title.innerText = cat;
+            section.appendChild(title);
+
+            // Crear contenedor de botones
+            const grid = document.createElement('div');
+            grid.className = 'button-grid';
+
+            // Filtrar y agregar botones de esta categoría
+            sites.filter(s => s.category === cat).forEach(site => {
+                const link = document.createElement('a');
+                link.href = site.url;
+                link.className = 'btn-link';
+                link.innerText = site.name;
+                link.target = "_blank"; // Abre en pestaña nueva
+                grid.appendChild(link);
+            });
+
+            section.appendChild(grid);
+            dashboard.appendChild(section);
+        });
+    }
+
+    // Ejecutar al cargar la página
+    renderDashboard();
+</script>
+
 </body>
 </html>
