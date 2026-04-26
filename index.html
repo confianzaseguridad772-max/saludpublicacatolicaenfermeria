@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scientific</title>
+    <title>Scientific | Dashboard v4.0 Cloud</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -12,7 +12,6 @@
             --glass: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
             --neon-blue: #00d2ff;
-            --neon-purple: #9d50bb;
             --text-main: #e0e0e0;
         }
 
@@ -26,152 +25,99 @@
             overflow-x: hidden;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            z-index: -1;
-            opacity: 0.3;
+        /* Ajuste para móviles */
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px; 
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-
-        /* HEADER */
         .header-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
-            padding: 30px;
+            padding: 20px;
             display: flex;
+            flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            gap: 15px;
         }
 
-        .scientist-profile { display: flex; align-items: center; gap: 25px; }
+        .scientist-profile { display: flex; align-items: center; gap: 15px; }
 
         .avatar-container {
-            width: 130px; height: 130px;
-            background: #000; border-radius: 50%; overflow: hidden;
-            border: 3px solid var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-            cursor: pointer;
-            transition: all 0.4s ease;
+            width: 80px; height: 80px; /* Tamaño reducido para móvil */
+            flex-shrink: 0;
+            border-radius: 50%; overflow: hidden;
+            border: 2px solid var(--neon-blue);
         }
 
         #avatar-video { width: 100%; height: 100%; object-fit: cover; }
 
         .welcome-text h1 {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Orbitron';
+            font-size: 1.2rem;
             background: linear-gradient(to right, #fff, var(--neon-blue));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-size: 2rem;
         }
 
-        /* BOTÓN ADMIN */
-        .admin-trigger {
-            background: var(--glass);
-            border: 1px solid var(--neon-blue);
-            color: var(--neon-blue);
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Orbitron';
-            transition: 0.3s;
+        /* Grid Responsivo Mejorado */
+        .category-container {
+            display: grid;
+            gap: 20px;
         }
 
-        .admin-trigger:hover {
-            background: var(--neon-blue);
-            color: #000;
-            box-shadow: 0 0 15px var(--neon-blue);
-        }
-
-        /* GRID */
         .category-group {
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px; padding: 25px; margin-bottom: 30px;
-            border-left: 5px solid var(--neon-blue);
-            backdrop-filter: blur(5px);
-        }
-
-        .category-name {
-            font-family: 'Orbitron'; color: var(--neon-blue);
-            margin-bottom: 20px; text-transform: uppercase;
+            border-radius: 15px; padding: 15px;
+            border-left: 4px solid var(--neon-blue);
         }
 
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Más compacto en móvil */
+            gap: 10px;
         }
 
         .link-card {
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            padding: 18px; border-radius: 12px;
+            padding: 12px; border-radius: 10px;
             display: flex; justify-content: space-between; align-items: center;
-            transition: 0.3s;
+            font-size: 0.9rem;
         }
 
-        .link-card a {
-            color: white; text-decoration: none;
-            display: flex; align-items: center; gap: 15px;
+        .link-card a { color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; overflow: hidden; }
+        .link-card span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* Media Query para Celulares Pequeños */
+        @media (max-width: 480px) {
+            .header-card { flex-direction: column; text-align: center; }
+            .links-grid { grid-template-columns: 1fr 1fr; } /* Dos columnas en móviles */
+            .welcome-text p { font-size: 0.8rem; }
         }
 
-        .link-card:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-5px);
-            border-color: var(--neon-blue);
-        }
-
-        .delete-btn {
-            color: #ff4d4d; cursor: pointer; opacity: 0.6;
-            transition: 0.3s; padding: 5px;
-        }
-
-        .delete-btn:hover { opacity: 1; transform: scale(1.2); }
-
-        /* MODAL */
+        /* Estilo del Modal Admin */
         .modal {
-            display: none; position: fixed; z-index: 2000;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
-            justify-content: center; align-items: center;
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.9); z-index: 2000;
+            justify-content: center; align-items: center; padding: 20px;
         }
 
         .modal-content {
-            background: #1b2735; padding: 30px; border-radius: 20px;
-            width: 90%; max-width: 450px; border: 1px solid var(--neon-blue);
+            background: #1b2735; padding: 20px; border-radius: 15px;
+            width: 100%; max-width: 400px; border: 1px solid var(--neon-blue);
         }
 
-        .modal-content input, .modal-content select {
-            width: 100%; padding: 12px; margin: 10px 0;
-            background: #090a0f; border: 1px solid var(--glass-border);
-            color: white; border-radius: 8px; font-family: 'Poppins';
+        input, select, button {
+            width: 100%; padding: 10px; margin: 5px 0;
+            border-radius: 5px; border: 1px solid var(--glass-border);
         }
 
-        /* WHATSAPP */
-        .whatsapp-float {
-            position: fixed; bottom: 30px; right: 30px;
-            background: #25d366; color: white; padding: 15px 25px;
-            border-radius: 50px; text-decoration: none;
-            display: flex; align-items: center; gap: 12px;
-            font-weight: bold; z-index: 1000; transition: 0.3s;
-        }
-
-        .pulse {
-            position: absolute; width: 100%; height: 100%;
-            background: inherit; border-radius: inherit;
-            z-index: -1; animation: pulse-animation 2s infinite;
-        }
-
-        @keyframes pulse-animation {
-            0% { transform: scale(1); opacity: 0.6; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
+        .btn-save { background: var(--neon-blue); color: black; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -179,17 +125,19 @@
 <div class="container">
     <header class="header-card">
         <div class="scientist-profile">
-            <div class="avatar-container" onmouseover="playAvatar()" onmouseout="muteAvatar()">
-                <video id="avatar-video" loop muted playsinline>
+            <div class="avatar-container">
+                <video id="avatar-video" loop muted playsinline autoplay>
                     <source src="avatar.mp4" type="video/mp4">
                 </video>
             </div>
             <div class="welcome-text">
                 <h1>SCIENTIST HUB</h1>
-                <p>Bienvenido al laboratorio digital.</p>
+                <p>Laboratorio Cloud v4.0</p>
             </div>
         </div>
-        <button class="admin-trigger" onclick="toggleModal()">+ GESTIONAR</button>
+        <button onclick="toggleModal()" style="width: auto; padding: 10px; background: transparent; color: var(--neon-blue); border: 1px solid var(--neon-blue);">
+            <i class="fas fa-cog"></i>
+        </button>
     </header>
 
     <div id="dynamic-grid" class="category-container"></div>
@@ -197,130 +145,113 @@
 
 <div id="adminModal" class="modal">
     <div class="modal-content">
-        <h2 style="font-family: 'Orbitron'; color: var(--neon-blue); margin-bottom: 20px;">NUEVO RECURSO</h2>
-        <input type="text" id="siteName" placeholder="Nombre de la página">
-        <input type="text" id="siteUrl" placeholder="URL (https://...)">
-        <input type="text" id="siteCat" placeholder="Categoría (Ej: Investigación)">
+        <h3 style="color: var(--neon-blue); margin-bottom: 10px;">CONFIGURACIÓN CLOUD</h3>
+        <input type="password" id="ghToken" placeholder="GitHub Personal Access Token">
+        <input type="text" id="ghRepo" placeholder="Usuario/Repositorio (ej: gustabo/dashboard)">
+        <hr style="margin: 15px 0; opacity: 0.2;">
+        <input type="text" id="siteName" placeholder="Nombre">
+        <input type="text" id="siteUrl" placeholder="URL">
+        <input type="text" id="siteCat" placeholder="Categoría">
         <select id="siteIcon">
-            <option value="fa-brain">Cerebro / IA</option>
-            <option value="fa-magnifying-glass">Búsqueda</option>
-            <option value="fa-video">Video / Multimedia</option>
-            <option value="fa-users">Personal / Equipos</option>
-            <option value="fa-file-invoice-dollar">Administración</option>
-            <option value="fa-laptop-code">Desarrollo</option>
-            <option value="fa-graduation-cap">Académico</option>
-            <option value="fa-chart-pie">Estadística</option>
+            <option value="fa-brain">IA</option>
+            <option value="fa-users">Personal</option>
+            <option value="fa-database">Data</option>
         </select>
         
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-            <button class="admin-trigger" style="flex: 1;" onclick="addLink()">GUARDAR</button>
-            <button class="admin-trigger" style="flex: 1; border-color: #ff4d4d; color: #ff4d4d;" onclick="toggleModal()">CERRAR</button>
-        </div>
+        <button class="btn-save" onclick="saveToGitHub()">ACTUALIZAR EN GITHUB</button>
+        <button onclick="toggleModal()" style="background: #333; color: white;">CERRAR</button>
+        <p style="font-size: 0.7rem; margin-top: 10px; opacity: 0.5;">* Al guardar, el código se reescribirá en tu repositorio.</p>
     </div>
 </div>
 
-<a href="https://wa.me/51956113989" class="whatsapp-float" target="_blank">
-    <div class="pulse"></div>
-    <i class="fab fa-whatsapp" style="font-size: 24px;"></i>
-    <span>CONTACTO DIRECTO</span>
-</a>
-
 <script>
-    const video = document.getElementById('avatar-video');
-    
-    // 1. CARGAR DATOS (Si no hay nada en localStorage, carga los de por defecto)
-    let defaultPages = [
+    // --- LOS DATOS ESTÁN AQUÍ ABAJO (SE REESCRIBIRÁN AUTOMÁTICAMENTE) ---
+    const myPages = [
         { name: "Consensus", url: "https://consensus.app/", cat: "Investigación", icon: "fa-brain" },
         { name: "Perplexity", url: "https://www.perplexity.ai/", cat: "Investigación", icon: "fa-magnifying-glass" },
-        { name: "VideoIA", url: "https://deevid.ai/es/ai-avatar/ai-avatar-video", cat: "Investigación", icon: "fa-video" },
         { name: "Gp:Asistencia", url: "https://confianzaseguridad772-max.github.io/Asistencia/", cat: "MIPES", icon: "fa-users" }
     ];
-
-    let myPages = JSON.parse(localStorage.getItem('scientific_links')) || defaultPages;
-
-    function playAvatar() {
-        video.currentTime = 0;
-        video.muted = false;
-        video.play().catch(e => {});
-    }
-
-    function muteAvatar() { video.muted = true; }
-
-    function toggleModal() {
-        const modal = document.getElementById('adminModal');
-        modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-    }
-
-    function addLink() {
-        const name = document.getElementById('siteName').value;
-        const url = document.getElementById('siteUrl').value;
-        const cat = document.getElementById('siteCat').value;
-        const icon = document.getElementById('siteIcon').value;
-
-        if (name && url && cat) {
-            myPages.push({ name, url, cat, icon });
-            updateStorage();
-            toggleModal();
-            // Limpiar campos
-            document.getElementById('siteName').value = '';
-            document.getElementById('siteUrl').value = '';
-            document.getElementById('siteCat').value = '';
-        } else {
-            alert("Por favor, completa todos los campos.");
-        }
-    }
-
-    function deleteLink(index) {
-        if (confirm("¿Seguro que quieres eliminar este acceso?")) {
-            myPages.splice(index, 1);
-            updateStorage();
-        }
-    }
-
-    function updateStorage() {
-        localStorage.setItem('scientific_links', JSON.stringify(myPages));
-        renderDashboard();
-    }
 
     function renderDashboard() {
         const grid = document.getElementById('dynamic-grid');
         grid.innerHTML = '';
-        
         const categories = [...new Set(myPages.map(p => p.cat))];
 
         categories.forEach(category => {
             const section = document.createElement('div');
             section.className = 'category-group';
-            const catId = `cat-${category.replace(/\s+/g, '')}`;
-            
-            section.innerHTML = `
-                <h2 class="category-name">${category}</h2>
-                <div class="links-grid" id="${catId}"></div>
-            `;
+            section.innerHTML = `<h2 style="font-size: 1rem; color: var(--neon-blue); margin-bottom: 10px;">${category}</h2><div class="links-grid" id="cat-${category.replace(/\s+/g, '')}"></div>`;
             grid.appendChild(section);
 
-            const catGrid = document.getElementById(catId);
-            
-            myPages.forEach((page, index) => {
-                if (page.cat === category) {
-                    const card = document.createElement('div');
-                    card.className = 'link-card';
-                    card.innerHTML = `
-                        <a href="${page.url}" target="_blank">
-                            <i class="fas ${page.icon}"></i>
-                            <span>${page.name}</span>
-                        </a>
-                        <i class="fas fa-trash-can delete-btn" onclick="deleteLink(${index})"></i>
-                    `;
-                    catGrid.appendChild(card);
-                }
+            const catGrid = document.getElementById(`cat-${category.replace(/\s+/g, '')}`);
+            myPages.filter(p => p.cat === category).forEach((page, idx) => {
+                const card = document.createElement('div');
+                card.className = 'link-card';
+                card.innerHTML = `<a href="${page.url}" target="_blank"><i class="fas ${page.icon}"></i><span>${page.name}</span></a>`;
+                catGrid.appendChild(card);
             });
         });
     }
 
-    // Iniciar
+    function toggleModal() {
+        const m = document.getElementById('adminModal');
+        m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    async function saveToGitHub() {
+        const token = document.getElementById('ghToken').value;
+        const repo = document.getElementById('ghRepo').value; // Formato: usuario/repo
+        const name = document.getElementById('siteName').value;
+        const url = document.getElementById('siteUrl').value;
+        const cat = document.getElementById('siteCat').value;
+        const icon = document.getElementById('siteIcon').value;
+
+        if (!token || !repo) return alert("Falta Token o Repositorio");
+
+        // Añadir nuevo link al array actual
+        if (name && url && cat) {
+            myPages.push({ name, url, cat, icon });
+        }
+
+        // Obtener el contenido actual del archivo index.html para conseguir el SHA (necesario para GitHub)
+        const path = "index.html"; // Asegúrate de que tu archivo se llame así
+        const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+
+        try {
+            const res = await fetch(apiUrl, { headers: { Authorization: `token ${token}` } });
+            const data = await res.json();
+            const sha = data.sha;
+
+            // Generar el nuevo contenido del archivo
+            let currentContent = document.documentElement.outerHTML;
+            // Reemplazar el array myPages antiguo por el nuevo en el texto del código
+            const newArrayStr = `const myPages = ${JSON.stringify(myPages, null, 4)};`;
+            const updatedCode = currentContent.replace(/const myPages = \[[\s\S]*?\];/, newArrayStr);
+
+            // Subir a GitHub
+            const commit = await fetch(apiUrl, {
+                method: "PUT",
+                headers: { Authorization: `token ${token}`, "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    message: "Update dashboard links via Web Admin",
+                    content: btoa(unescape(encodeURIComponent(updatedCode))), // Codificar a Base64 correctamente
+                    sha: sha
+                })
+            });
+
+            if (commit.ok) {
+                alert("¡Guardado en la nube! GitHub tardará 1-2 minutos en actualizar la web.");
+                location.reload();
+            } else {
+                alert("Error al subir. Revisa el token y permisos.");
+            }
+        } catch (e) {
+            console.error(e);
+            alert("Error de conexión con GitHub.");
+        }
+    }
+
     window.onload = renderDashboard;
 </script>
-
 </body>
 </html>
