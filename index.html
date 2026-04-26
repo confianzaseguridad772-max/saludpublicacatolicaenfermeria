@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scientific | Dashboard v2.0</title>
+    <title>Scientific</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -35,12 +35,9 @@
             opacity: 0.3;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
+        /* HEADER */
         .header-card {
             background: var(--glass);
             backdrop-filter: blur(15px);
@@ -54,65 +51,55 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
-        .scientist-profile {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
+        .scientist-profile { display: flex; align-items: center; gap: 25px; }
 
-        /* Avatar con Video Interactivo */
         .avatar-container {
-            position: relative;
-            width: 130px;
-            height: 130px;
-            background: #000;
-            border-radius: 50%;
-            overflow: hidden;
+            width: 130px; height: 130px;
+            background: #000; border-radius: 50%; overflow: hidden;
             border: 3px solid var(--neon-blue);
             box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease;
         }
 
-        .avatar-container:hover {
-            transform: scale(1.1);
-            border-color: var(--neon-purple);
-            box-shadow: 0 0 30px rgba(157, 80, 187, 0.6);
-        }
-
-        #avatar-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(1.1);
-        }
+        #avatar-video { width: 100%; height: 100%; object-fit: cover; }
 
         .welcome-text h1 {
             font-family: 'Orbitron', sans-serif;
-            letter-spacing: 2px;
             background: linear-gradient(to right, #fff, var(--neon-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             font-size: 2rem;
         }
 
-        .category-container { display: grid; gap: 30px; }
+        /* BOTÓN ADMIN */
+        .admin-trigger {
+            background: var(--glass);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Orbitron';
+            transition: 0.3s;
+        }
 
+        .admin-trigger:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        /* GRID */
         .category-group {
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            padding: 25px;
+            border-radius: 15px; padding: 25px; margin-bottom: 30px;
             border-left: 5px solid var(--neon-blue);
             backdrop-filter: blur(5px);
         }
 
         .category-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            color: var(--neon-blue);
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+            font-family: 'Orbitron'; color: var(--neon-blue);
+            margin-bottom: 20px; text-transform: uppercase;
         }
 
         .links-grid {
@@ -124,70 +111,66 @@
         .link-card {
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            padding: 18px;
-            border-radius: 12px;
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 15px;
-            transition: all 0.3s ease;
+            padding: 18px; border-radius: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: 0.3s;
         }
 
-        .link-card i {
-            font-size: 1.2rem;
-            color: var(--neon-blue);
-            width: 25px;
-            text-align: center;
+        .link-card a {
+            color: white; text-decoration: none;
+            display: flex; align-items: center; gap: 15px;
         }
 
         .link-card:hover {
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-5px);
             border-color: var(--neon-blue);
-            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);
         }
 
+        .delete-btn {
+            color: #ff4d4d; cursor: pointer; opacity: 0.6;
+            transition: 0.3s; padding: 5px;
+        }
+
+        .delete-btn:hover { opacity: 1; transform: scale(1.2); }
+
+        /* MODAL */
+        .modal {
+            display: none; position: fixed; z-index: 2000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+            justify-content: center; align-items: center;
+        }
+
+        .modal-content {
+            background: #1b2735; padding: 30px; border-radius: 20px;
+            width: 90%; max-width: 450px; border: 1px solid var(--neon-blue);
+        }
+
+        .modal-content input, .modal-content select {
+            width: 100%; padding: 12px; margin: 10px 0;
+            background: #090a0f; border: 1px solid var(--glass-border);
+            color: white; border-radius: 8px; font-family: 'Poppins';
+        }
+
+        /* WHATSAPP */
         .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25d366;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: bold;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-            z-index: 1000;
-            transition: 0.3s;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.05) rotate(-2deg);
+            position: fixed; bottom: 30px; right: 30px;
+            background: #25d366; color: white; padding: 15px 25px;
+            border-radius: 50px; text-decoration: none;
+            display: flex; align-items: center; gap: 12px;
+            font-weight: bold; z-index: 1000; transition: 0.3s;
         }
 
         .pulse {
-            position: absolute;
-            width: 100%; height: 100%;
-            background: inherit;
-            border-radius: inherit;
-            z-index: -1;
-            animation: pulse-animation 2s infinite;
+            position: absolute; width: 100%; height: 100%;
+            background: inherit; border-radius: inherit;
+            z-index: -1; animation: pulse-animation 2s infinite;
         }
 
         @keyframes pulse-animation {
             0% { transform: scale(1); opacity: 0.6; }
             100% { transform: scale(1.5); opacity: 0; }
-        }
-
-        @media (max-width: 768px) {
-            .header-card { flex-direction: column; text-align: center; }
-            .scientist-profile { flex-direction: column; }
         }
     </style>
 </head>
@@ -199,20 +182,44 @@
             <div class="avatar-container" onmouseover="playAvatar()" onmouseout="muteAvatar()">
                 <video id="avatar-video" loop muted playsinline>
                     <source src="avatar.mp4" type="video/mp4">
-                    Tu navegador no soporta videos.
                 </video>
             </div>
             <div class="welcome-text">
                 <h1>SCIENTIST HUB</h1>
-                <p>Bienvenido al laboratorio digital. Tus herramientas están listas.</p>
+                <p>Bienvenido al laboratorio digital.</p>
             </div>
         </div>
+        <button class="admin-trigger" onclick="toggleModal()">+ GESTIONAR</button>
     </header>
 
     <div id="dynamic-grid" class="category-container"></div>
 </div>
 
-<a href="https://wa.me/51956113989?text=Hola,%20solicito%20asistencia%20técnica" class="whatsapp-float" target="_blank">
+<div id="adminModal" class="modal">
+    <div class="modal-content">
+        <h2 style="font-family: 'Orbitron'; color: var(--neon-blue); margin-bottom: 20px;">NUEVO RECURSO</h2>
+        <input type="text" id="siteName" placeholder="Nombre de la página">
+        <input type="text" id="siteUrl" placeholder="URL (https://...)">
+        <input type="text" id="siteCat" placeholder="Categoría (Ej: Investigación)">
+        <select id="siteIcon">
+            <option value="fa-brain">Cerebro / IA</option>
+            <option value="fa-magnifying-glass">Búsqueda</option>
+            <option value="fa-video">Video / Multimedia</option>
+            <option value="fa-users">Personal / Equipos</option>
+            <option value="fa-file-invoice-dollar">Administración</option>
+            <option value="fa-laptop-code">Desarrollo</option>
+            <option value="fa-graduation-cap">Académico</option>
+            <option value="fa-chart-pie">Estadística</option>
+        </select>
+        
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="admin-trigger" style="flex: 1;" onclick="addLink()">GUARDAR</button>
+            <button class="admin-trigger" style="flex: 1; border-color: #ff4d4d; color: #ff4d4d;" onclick="toggleModal()">CERRAR</button>
+        </div>
+    </div>
+</div>
+
+<a href="https://wa.me/51956113989" class="whatsapp-float" target="_blank">
     <div class="pulse"></div>
     <i class="fab fa-whatsapp" style="font-size: 24px;"></i>
     <span>CONTACTO DIRECTO</span>
@@ -220,59 +227,99 @@
 
 <script>
     const video = document.getElementById('avatar-video');
-
-    function playAvatar() {
-        video.currentTime = 0; // Reinicia el video para que el saludo sea completo
-        video.muted = false; 
-        video.play().catch(e => console.log("Interacción requerida para audio"));
-    }
-
-    function muteAvatar() {
-        video.muted = true;
-    }
-
-    // --- BASE DE DATOS DE PÁGINAS (Iconos corregidos para FontAwesome) ---
-    const myPages = [
+    
+    // 1. CARGAR DATOS (Si no hay nada en localStorage, carga los de por defecto)
+    let defaultPages = [
         { name: "Consensus", url: "https://consensus.app/", cat: "Investigación", icon: "fa-brain" },
         { name: "Perplexity", url: "https://www.perplexity.ai/", cat: "Investigación", icon: "fa-magnifying-glass" },
         { name: "VideoIA", url: "https://deevid.ai/es/ai-avatar/ai-avatar-video", cat: "Investigación", icon: "fa-video" },
-        { name: "RemoverLogos", url: "https://online-video-cutter.com/es/remove-logo", cat: "Investigación", icon: "fa-eraser" },
-        { name: "Gp:Asistencia", url: "https://confianzaseguridad772-max.github.io/Asistencia/", cat: "MIPES", icon: "fa-users" },
-        { name: "Nómina Digital", url: "#", cat: "Administración", icon: "fa-file-invoice-dollar" },
-        { name: "SPSS Statistics", url: "#", cat: "Herramientas", icon: "fa-chart-pie" },
-        { name: "Google Scholar", url: "#", cat: "Herramientas", icon: "fa-graduation-cap" },
-        { name: "Configuración PWA", url: "#", cat: "Desarrollo", icon: "fa-laptop-code" }
+        { name: "Gp:Asistencia", url: "https://confianzaseguridad772-max.github.io/Asistencia/", cat: "MIPES", icon: "fa-users" }
     ];
 
-    function initDashboard() {
+    let myPages = JSON.parse(localStorage.getItem('scientific_links')) || defaultPages;
+
+    function playAvatar() {
+        video.currentTime = 0;
+        video.muted = false;
+        video.play().catch(e => {});
+    }
+
+    function muteAvatar() { video.muted = true; }
+
+    function toggleModal() {
+        const modal = document.getElementById('adminModal');
+        modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function addLink() {
+        const name = document.getElementById('siteName').value;
+        const url = document.getElementById('siteUrl').value;
+        const cat = document.getElementById('siteCat').value;
+        const icon = document.getElementById('siteIcon').value;
+
+        if (name && url && cat) {
+            myPages.push({ name, url, cat, icon });
+            updateStorage();
+            toggleModal();
+            // Limpiar campos
+            document.getElementById('siteName').value = '';
+            document.getElementById('siteUrl').value = '';
+            document.getElementById('siteCat').value = '';
+        } else {
+            alert("Por favor, completa todos los campos.");
+        }
+    }
+
+    function deleteLink(index) {
+        if (confirm("¿Seguro que quieres eliminar este acceso?")) {
+            myPages.splice(index, 1);
+            updateStorage();
+        }
+    }
+
+    function updateStorage() {
+        localStorage.setItem('scientific_links', JSON.stringify(myPages));
+        renderDashboard();
+    }
+
+    function renderDashboard() {
         const grid = document.getElementById('dynamic-grid');
+        grid.innerHTML = '';
+        
         const categories = [...new Set(myPages.map(p => p.cat))];
 
         categories.forEach(category => {
             const section = document.createElement('div');
             section.className = 'category-group';
+            const catId = `cat-${category.replace(/\s+/g, '')}`;
+            
             section.innerHTML = `
                 <h2 class="category-name">${category}</h2>
-                <div class="links-grid" id="cat-${category.replace(/\s+/g, '')}"></div>
+                <div class="links-grid" id="${catId}"></div>
             `;
             grid.appendChild(section);
 
-            const catGrid = document.getElementById(`cat-${category.replace(/\s+/g, '')}`);
-            myPages.filter(p => p.cat === category).forEach(page => {
-                const card = document.createElement('a');
-                card.href = page.url;
-                card.className = 'link-card';
-                card.target = "_blank";
-                card.innerHTML = `
-                    <i class="fas ${page.icon}"></i>
-                    <span>${page.name}</span>
-                `;
-                catGrid.appendChild(card);
+            const catGrid = document.getElementById(catId);
+            
+            myPages.forEach((page, index) => {
+                if (page.cat === category) {
+                    const card = document.createElement('div');
+                    card.className = 'link-card';
+                    card.innerHTML = `
+                        <a href="${page.url}" target="_blank">
+                            <i class="fas ${page.icon}"></i>
+                            <span>${page.name}</span>
+                        </a>
+                        <i class="fas fa-trash-can delete-btn" onclick="deleteLink(${index})"></i>
+                    `;
+                    catGrid.appendChild(card);
+                }
             });
         });
     }
 
-    window.onload = initDashboard;
+    // Iniciar
+    window.onload = renderDashboard;
 </script>
 
 </body>
