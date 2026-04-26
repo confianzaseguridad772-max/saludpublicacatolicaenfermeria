@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scientific| Dashboard v2.0</title>
+    <title>Scientific | Dashboard v2.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -60,30 +60,31 @@
             gap: 25px;
         }
 
-        /* Avatar con Video */
+        /* Avatar con Video Interactivo */
         .avatar-container {
             position: relative;
-            width: 120px;
-            height: 120px;
-            background: black;
+            width: 130px;
+            height: 130px;
+            background: #000;
             border-radius: 50%;
-            overflow: hidden; /* Corta el video en forma de círculo */
+            overflow: hidden;
             border: 3px solid var(--neon-blue);
-            box-shadow: 0 0 15px var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .avatar-container:hover {
             transform: scale(1.1);
             border-color: var(--neon-purple);
-            box-shadow: 0 0 20px var(--neon-purple);
+            box-shadow: 0 0 30px rgba(157, 80, 187, 0.6);
         }
 
         #avatar-video {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Asegura que el video llene el círculo */
+            object-fit: cover;
+            filter: brightness(1.1);
         }
 
         .welcome-text h1 {
@@ -92,6 +93,7 @@
             background: linear-gradient(to right, #fff, var(--neon-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-size: 2rem;
         }
 
         .category-container { display: grid; gap: 30px; }
@@ -101,6 +103,7 @@
             border-radius: 15px;
             padding: 25px;
             border-left: 5px solid var(--neon-blue);
+            backdrop-filter: blur(5px);
         }
 
         .category-name {
@@ -109,6 +112,7 @@
             margin-bottom: 20px;
             color: var(--neon-blue);
             text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
         }
 
         .links-grid {
@@ -120,24 +124,29 @@
         .link-card {
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            padding: 15px;
+            padding: 18px;
             border-radius: 12px;
             color: white;
             text-decoration: none;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
+            justify-content: flex-start;
+            gap: 15px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        }
+
+        .link-card i {
+            font-size: 1.2rem;
+            color: var(--neon-blue);
+            width: 25px;
+            text-align: center;
         }
 
         .link-card:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             transform: translateY(-5px);
             border-color: var(--neon-blue);
-            box-shadow: 0 0 15px var(--neon-blue);
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);
         }
 
         .whatsapp-float {
@@ -156,6 +165,10 @@
             box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
             z-index: 1000;
             transition: 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.05) rotate(-2deg);
         }
 
         .pulse {
@@ -208,27 +221,27 @@
 <script>
     const video = document.getElementById('avatar-video');
 
-    // El video inicia muteado y en pausa por políticas de navegador
     function playAvatar() {
-        video.muted = false; // Activa el sonido
-        video.play();       // Inicia reproducción
+        video.currentTime = 0; // Reinicia el video para que el saludo sea completo
+        video.muted = false; 
+        video.play().catch(e => console.log("Interacción requerida para audio"));
     }
 
     function muteAvatar() {
-        video.muted = true;  // Silencia al salir el mouse
-        // Opcional: video.pause(); si prefieres que se detenga
+        video.muted = true;
     }
 
+    // --- BASE DE DATOS DE PÁGINAS (Iconos corregidos para FontAwesome) ---
     const myPages = [
-        { name: "Consensus", url: "https://consensus.app/", cat: "Investigación", icon: "fa-cerebro" },
-        { name: "Perplexity", url: "https://www.perplexity.ai/", cat: "Investigación", icon: "fa-database" },
-        { name: "VideoIA", url: "https://deevid.ai/es/ai-avatar/ai-avatar-video", cat: "Investigación", icon: "fa-database" },
-        { name: "RemoverLogos", url: "https://online-video-cutter.com/es/remove-logo", cat: "Investigación", icon: "fa-database" },
-        { name: "Gp:Asistencia", url: "https://confianzaseguridad772-max.github.io/Asistencia/", cat: "MIPES", icon: "fa-grupo" },
-        { name: "Nómina Digital", url: "#", cat: "Administración", icon: "fa-file-invoice" },
-        { name: "SPSS Statistics", url: "#", cat: "Herramientas", icon: "fa-chart-line" },
+        { name: "Consensus", url: "https://consensus.app/", cat: "Investigación", icon: "fa-brain" },
+        { name: "Perplexity", url: "https://www.perplexity.ai/", cat: "Investigación", icon: "fa-magnifying-glass" },
+        { name: "VideoIA", url: "https://deevid.ai/es/ai-avatar/ai-avatar-video", cat: "Investigación", icon: "fa-video" },
+        { name: "RemoverLogos", url: "https://online-video-cutter.com/es/remove-logo", cat: "Investigación", icon: "fa-eraser" },
+        { name: "Gp:Asistencia", url: "https://confianzaseguridad772-max.github.io/Asistencia/", cat: "MIPES", icon: "fa-users" },
+        { name: "Nómina Digital", url: "#", cat: "Administración", icon: "fa-file-invoice-dollar" },
+        { name: "SPSS Statistics", url: "#", cat: "Herramientas", icon: "fa-chart-pie" },
         { name: "Google Scholar", url: "#", cat: "Herramientas", icon: "fa-graduation-cap" },
-        { name: "Configuración PWA", url: "#", cat: "Desarrollo", icon: "fa-code" }
+        { name: "Configuración PWA", url: "#", cat: "Desarrollo", icon: "fa-laptop-code" }
     ];
 
     function initDashboard() {
@@ -240,11 +253,11 @@
             section.className = 'category-group';
             section.innerHTML = `
                 <h2 class="category-name">${category}</h2>
-                <div class="links-grid" id="cat-${category}"></div>
+                <div class="links-grid" id="cat-${category.replace(/\s+/g, '')}"></div>
             `;
             grid.appendChild(section);
 
-            const catGrid = document.getElementById(`cat-${category}`);
+            const catGrid = document.getElementById(`cat-${category.replace(/\s+/g, '')}`);
             myPages.filter(p => p.cat === category).forEach(page => {
                 const card = document.createElement('a');
                 card.href = page.url;
