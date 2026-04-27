@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es"><head>
+<html lang="es" jd-enabled="false"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scientific Hub | GOM</title>
@@ -148,7 +148,7 @@
             border: none; padding: 14px; border-radius: 10px; width: 100%;
         }
     </style>
-</head>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></head>
 <body>
 
 <div class="container">
@@ -197,6 +197,24 @@
                         <a href="https://confianzaseguridad772-max.github.io/Asistencia/" target="_blank">
                             <i class="fas fa-users-gear main-icon"></i><br>
                             <span>Gp:Asistencia</span>
+                        </a>
+                    </div></div>
+            </div><div class="category-wrapper active">
+                <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
+                    <div class="category-title"><i class="fas fa-folder-open"></i> Buscador</div>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </div>
+                <div class="category-content" id="cat-Buscador"><div class="link-card">
+                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(3)"></i>
+                        <a href="www.google.com" target="_blank">
+                            <i class="fas fa-brain main-icon"></i><br>
+                            <span>Go</span>
+                        </a>
+                    </div><div class="link-card">
+                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(4)"></i>
+                        <a href="www.google.com" target="_blank">
+                            <i class="fas fa-brain main-icon"></i><br>
+                            <span>Go</span>
                         </a>
                     </div></div>
             </div></div>
@@ -261,6 +279,12 @@
         "url": "www.google.com",
         "cat": "Buscador",
         "icon": "fa-brain"
+    },
+    {
+        "name": "DIT",
+        "url": "https://confianzaseguridad772-max.github.io/GeoBoyGirl/",
+        "cat": "DIT",
+        "icon": "fa-stethoscope"
     }
 ];
 
@@ -356,4 +380,4 @@
 </script>
 
 
-</body></html>
+</body><justdone-content-app id="justdone-content-app" style="z-index: 2147483647; position: fixed;"></justdone-content-app></html>
