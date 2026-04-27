@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="es" jd-enabled="false"><head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scientific Hub | GOM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&amp;family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -27,7 +28,6 @@
 
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
 
-        /* Header Estilo Sci-Fi */
         .header-card {
             background: var(--glass);
             backdrop-filter: blur(12px);
@@ -61,7 +61,6 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* Categorías Colapsables */
         .category-wrapper {
             margin-bottom: 15px;
             border-radius: 18px;
@@ -77,10 +76,7 @@
             align-items: center;
             cursor: pointer;
             background: rgba(255,255,255,0.03);
-            transition: 0.3s;
         }
-
-        .category-header:active { background: rgba(255,255,255,0.1); }
 
         .category-title {
             font-family: 'Orbitron'; font-size: 0.85rem;
@@ -96,17 +92,10 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             border-top: 1px solid var(--glass-border);
-            animation: slideDown 0.3s ease-out;
         }
 
         .category-wrapper.active .category-content { display: grid; }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Tarjetas de Enlaces */
         .link-card {
             background: rgba(255,255,255,0.05);
             border-radius: 15px;
@@ -114,24 +103,19 @@
             position: relative;
             text-align: center;
             border: 1px solid transparent;
-            transition: 0.3s;
         }
 
-        .link-card:active { transform: scale(0.95); border-color: var(--neon-blue); }
-
-        .link-card a { text-decoration: none; color: white; font-size: 0.75rem; font-weight: 500; }
+        .link-card a { text-decoration: none; color: white; font-size: 0.75rem; }
         .link-card i.main-icon { 
             font-size: 1.5rem; margin-bottom: 8px; 
-            background: linear-gradient(135deg, #fff, var(--neon-blue));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            color: var(--neon-blue);
         }
 
         .delete-btn {
             position: absolute; top: 8px; right: 8px;
-            color: #ff4d4d; opacity: 0.3; font-size: 0.8rem; padding: 5px;
+            color: #ff4d4d; opacity: 0.3; font-size: 0.8rem;
         }
 
-        /* Botón Flotante para Agregar */
         .fab {
             position: fixed; bottom: 25px; right: 25px;
             width: 55px; height: 55px;
@@ -141,35 +125,31 @@
             border: none; color: white; font-size: 1.2rem; cursor: pointer; z-index: 100;
         }
 
-        /* Modal Mejorado */
         .modal {
             display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
-            z-index: 2000; justify-content: center; align-items: flex-end;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+            z-index: 2000; justify-content: center; align-items: center;
+            padding: 20px;
         }
 
         .modal-content {
-            background: #111827; width: 100%; max-width: 500px;
-            padding: 30px; border-radius: 30px 30px 0 0;
-            border-top: 2px solid var(--neon-blue);
-            animation: modalUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #111827; width: 100%; max-width: 400px;
+            padding: 25px; border-radius: 20px;
+            border: 1px solid var(--neon-blue);
         }
 
-        @keyframes modalUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
         input, select {
-            width: 100%; padding: 14px; margin-bottom: 12px;
+            width: 100%; padding: 12px; margin-bottom: 12px;
             background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
-            border-radius: 12px; color: white; font-family: 'Poppins';
+            border-radius: 10px; color: white;
         }
 
         .save-btn {
             background: var(--neon-blue); color: #000; font-weight: 700;
-            border: none; padding: 16px; border-radius: 12px; width: 100%; margin-top: 10px;
+            border: none; padding: 14px; border-radius: 10px; width: 100%;
         }
-
     </style>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></head>
+</head>
 <body>
 
 <div class="container">
@@ -177,75 +157,43 @@
         <div class="profile">
             <div class="avatar-ring">
                 <div class="avatar-box">
-                    <video id="avatar-video" loop="" muted="" playsinline="" autoplay="">
+                    <video id="avatar-video" loop muted playsinline autoplay>
                         <source src="avatar.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
             <div class="title-box">
                 <h1>GOM SCIENTIFIC</h1>
-                <p style="font-size: 0.6rem; opacity: 0.6; text-transform: uppercase;">Cloud Database Active</p>
+                <p style="font-size: 0.6rem; opacity: 0.6;">CLOUD DATABASE ACTIVE</p>
             </div>
         </div>
         <i class="fas fa-signal" style="color: var(--neon-blue); font-size: 0.8rem;"></i>
     </header>
 
-    <div id="dynamic-grid"><div class="category-wrapper active">
-                <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
-                    <div class="category-title"><i class="fas fa-folder-open"></i> Investigación</div>
-                    <i class="fas fa-chevron-down chevron"></i>
-                </div>
-                <div class="category-content" id="cat-Investigación"><div class="link-card">
-                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(0)"></i>
-                        <a href="https://consensus.app/" target="_blank">
-                            <i class="fas fa-brain main-icon"></i><br>
-                            <span>Consensus</span>
-                        </a>
-                    </div><div class="link-card">
-                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(1)"></i>
-                        <a href="https://www.perplexity.ai/" target="_blank">
-                            <i class="fas fa-magnifying-glass main-icon"></i><br>
-                            <span>Perplexity</span>
-                        </a>
-                    </div></div>
-            </div><div class="category-wrapper active">
-                <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
-                    <div class="category-title"><i class="fas fa-folder-open"></i> MIPES</div>
-                    <i class="fas fa-chevron-down chevron"></i>
-                </div>
-                <div class="category-content" id="cat-MIPES"><div class="link-card">
-                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(2)"></i>
-                        <a href="https://confianzaseguridad772-max.github.io/Asistencia/" target="_blank">
-                            <i class="fas fa-users-gear main-icon"></i><br>
-                            <span>Gp:Asistencia</span>
-                        </a>
-                    </div></div>
-            </div></div>
+    <div id="dynamic-grid"></div>
 </div>
 
 <button class="fab" onclick="toggleModal()"><i class="fas fa-plus"></i></button>
 
-<div id="adminModal" class="modal" style="display: flex;">
+<div id="adminModal" class="modal">
     <div class="modal-content">
-        <h2 style="font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 20px; text-align: center;">AÑADIR ACCESO</h2>
-        <input type="text" id="siteName" placeholder="Nombre del sitio">
+        <h2 style="font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 20px; text-align: center; color: var(--neon-blue);">AÑADIR ACCESO</h2>
+        <input type="text" id="siteName" placeholder="Nombre (Ej: Google)">
         <input type="text" id="siteUrl" placeholder="URL (https://...)">
-        <input type="text" id="siteCat" placeholder="Categoría (Ej: Salud, MIPES)">
+        <input type="text" id="siteCat" placeholder="Categoría">
         <select id="siteIcon">
             <option value="fa-flask-vial">Laboratorio</option>
-            <option value="fa-stethoscope">Salud / Médico</option>
-            <option value="fa-brain">Inteligencia Artificial</option>
-            <option value="fa-users-gear">Gestión / MIPES</option>
-            <option value="fa-child-reaching">Pediatría / Niños</option>
-            <option value="fa-globe">Web General</option>
+            <option value="fa-stethoscope">Salud</option>
+            <option value="fa-brain">Cerebro</option>
+            <option value="fa-users-gear">Gestión</option>
+            <option value="fa-globe">Web</option>
         </select>
         <button class="save-btn" onclick="saveToGitHub()">SINCRONIZAR AHORA</button>
-        <button onclick="toggleModal()" style="background:transparent; color:white; width:100%; margin-top:15px; border:none; opacity:0.5;">Cancelar</button>
+        <button onclick="toggleModal()" style="background:transparent; color:white; width:100%; margin-top:10px; border:none; opacity:0.5;">Cerrar</button>
     </div>
 </div>
 
 <script>
-    // --- CONFIGURACIÓN UNICA ---
     const CONFIG = {
         p1: "ghp_As2nvsum", 
         p2: "eyEdyYjaHwx4N45V",
@@ -254,7 +202,6 @@
         get token() { return this.p1 + this.p2 + this.p3; }
     };
 
-    // --- DATOS DE TUS PÁGINAS ---
     const myPages = [
     {
         "name": "Consensus",
@@ -273,12 +220,6 @@
         "url": "https://confianzaseguridad772-max.github.io/Asistencia/",
         "cat": "MIPES",
         "icon": "fa-users-gear"
-    },
-    {
-        "name": "HOLA",
-        "url": "www.google.com",
-        "cat": "MIPES",
-        "icon": "fa-flask-vial"
     }
 ];
 
@@ -289,8 +230,7 @@
 
         categories.forEach(category => {
             const wrapper = document.createElement('div');
-            wrapper.className = 'category-wrapper active'; // Empiezan abiertas por defecto
-            
+            wrapper.className = 'category-wrapper active';
             const catId = category.replace(/\s+/g, '');
             
             wrapper.innerHTML = `
@@ -326,9 +266,9 @@
     }
 
     async function deleteLink(index) {
-        if(confirm("¿Eliminar este acceso permanentemente?")) {
+        if(confirm("¿Eliminar acceso?")) {
             myPages.splice(index, 1);
-            await pushToGitHub("Eliminar enlace");
+            await pushToGitHub("Enlace eliminado");
         }
     }
 
@@ -340,10 +280,8 @@
 
         if (name && url && cat) {
             myPages.push({ name, url, cat, icon });
-            await pushToGitHub(`Añadido: ${name}`);
-        } else {
-            alert("Completa todos los campos");
-        }
+            await pushToGitHub(`Nuevo: ${name}`);
+        } else { alert("Faltan datos"); }
     }
 
     async function pushToGitHub(msg) {
@@ -352,7 +290,7 @@
             const res = await fetch(apiUrl, { headers: { Authorization: `token ${CONFIG.token}` } });
             const data = await res.json();
             
-            let fullCode = document.documentElement.outerHTML;
+            let fullCode = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
             const newArrayStr = `const myPages = ${JSON.stringify(myPages, null, 4)};`;
             const updatedCode = fullCode.replace(/const myPages = \[[\s\S]*?\];/, newArrayStr);
 
@@ -361,24 +299,19 @@
                 headers: { Authorization: `token ${CONFIG.token}`, "Content-Type": "application/json" },
                 body: JSON.stringify({
                     message: msg,
-                    content: btoa(unescape(encodeURIComponent("<!DOCTYPE html>\n" + updatedCode))),
+                    content: btoa(unescape(encodeURIComponent(updatedCode))),
                     sha: data.sha
                 })
             });
 
             if (commit.ok) {
-                alert("¡Sincronización exitosa!");
-                location.reload();
-            } else {
-                alert("Error de permisos. Verifica el token.");
-            }
-        } catch (e) {
-            alert("Error de conexión.");
-        }
+                alert("Sincronizado. La página se actualizará en 10 segundos.");
+                setTimeout(() => { location.reload(); }, 10000); // Espera 10 seg antes de recargar
+            } else { alert("Error de sincronización."); }
+        } catch (e) { alert("Error de red."); }
     }
 
     window.onload = renderDashboard;
 </script>
-
-
-</body><justdone-content-app id="justdone-content-app" style="z-index: 2147483647; position: fixed;"></justdone-content-app></html>
+</body>
+</html>
