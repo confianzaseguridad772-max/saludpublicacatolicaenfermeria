@@ -1,56 +1,56 @@
 <!DOCTYPE html>
-<html lang="es" jd-enabled="false"><head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scientific Hub | GOM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&amp;family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet">
+    <title>GOM Scientific Hub | Cloud Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.12);
             --neon-blue: #00d2ff;
             --neon-purple: #9d50bb;
             --text-main: #f0f0f0;
+            --bg-dark: #020617;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            background: radial-gradient(circle at center, #0f172a 0%, var(--bg-dark) 100%);
             font-family: 'Poppins', sans-serif;
             color: var(--text-main);
             min-height: 100vh;
-            padding-bottom: 50px;
+            padding-bottom: 90px;
         }
 
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
 
+        /* --- Header con Avatar --- */
         .header-card {
             background: var(--glass);
             backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            padding: 18px;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
         .profile { display: flex; align-items: center; gap: 15px; }
         .avatar-ring {
             width: 60px; height: 60px;
-            border-radius: 50%;
-            padding: 2px;
+            border-radius: 50%; padding: 2px;
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
         }
-        .avatar-box {
-            width: 100%; height: 100%;
-            border-radius: 50%; overflow: hidden;
-            background: #000;
+        .avatar-box { 
+            width: 100%; height: 100%; border-radius: 50%; 
+            overflow: hidden; background: #000; cursor: pointer;
+            position: relative;
         }
         #avatar-video { width: 100%; height: 100%; object-fit: cover; }
 
@@ -60,269 +60,204 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
+        /* --- Grid de Categorías --- */
         .category-wrapper {
-            margin-bottom: 15px;
-            border-radius: 18px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            background: var(--glass);
+            margin-bottom: 15px; border-radius: 18px; overflow: hidden;
+            border: 1px solid var(--glass-border); background: var(--glass);
         }
 
         .category-header {
-            padding: 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            background: rgba(255,255,255,0.03);
+            padding: 18px; display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; background: rgba(255,255,255,0.03);
         }
 
         .category-title {
-            font-family: 'Orbitron'; font-size: 0.85rem;
-            color: var(--neon-blue); display: flex; align-items: center; gap: 10px;
+            font-family: 'Orbitron'; font-size: 0.85rem; color: var(--neon-blue);
+            display: flex; align-items: center; gap: 10px;
         }
 
         .chevron { transition: transform 0.4s; opacity: 0.5; }
-        .category-wrapper.active .chevron { transform: rotate(180deg); }
+        .category-wrapper.active .chevron { transform: rotate(180deg); opacity: 1; }
 
         .category-content {
-            display: none;
-            padding: 15px;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            display: none; padding: 15px;
+            grid-template-columns: repeat(2, 1fr); gap: 12px;
             border-top: 1px solid var(--glass-border);
         }
-
         .category-wrapper.active .category-content { display: grid; }
 
+        /* --- Botones --- */
         .link-card {
             background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 15px;
-            position: relative;
-            text-align: center;
-            border: 1px solid transparent;
+            border-radius: 15px; padding: 16px;
+            text-align: center; border: 1px solid transparent;
+            transition: all 0.2s ease;
         }
+        .link-card:active { transform: scale(0.95); background: rgba(255,255,255,0.1); border-color: var(--neon-blue); }
 
-        .link-card a { text-decoration: none; color: white; font-size: 0.75rem; }
+        .link-card a { text-decoration: none; color: white; display: block; }
         .link-card i.main-icon { 
-            font-size: 1.5rem; margin-bottom: 8px; 
-            color: var(--neon-blue);
+            font-size: 1.6rem; margin-bottom: 8px; color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
         }
+        .link-card span { font-size: 0.75rem; font-weight: 400; display: block; opacity: 0.9; }
 
-        .delete-btn {
-            position: absolute; top: 8px; right: 8px;
-            color: #ff4d4d; opacity: 0.3; font-size: 0.8rem;
-        }
-
+        /* --- FAB y Modal --- */
         .fab {
-            position: fixed; bottom: 25px; right: 25px;
-            width: 55px; height: 55px;
+            position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px;
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 20px rgba(0,210,255,0.3);
+            box-shadow: 0 10px 25px rgba(0,210,255,0.3);
             border: none; color: white; font-size: 1.2rem; cursor: pointer; z-index: 100;
         }
 
         .modal {
             display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
-            z-index: 2000; justify-content: center; align-items: center;
-            padding: 20px;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+            z-index: 2000; justify-content: center; align-items: center; padding: 20px;
         }
 
         .modal-content {
-            background: #111827; width: 100%; max-width: 400px;
-            padding: 25px; border-radius: 20px;
-            border: 1px solid var(--neon-blue);
+            background: #0f172a; width: 100%; max-width: 400px;
+            padding: 30px; border-radius: 24px; border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 40px rgba(0, 210, 255, 0.2);
         }
 
         input, select {
-            width: 100%; padding: 12px; margin-bottom: 12px;
+            width: 100%; padding: 14px; margin-bottom: 12px;
             background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
-            border-radius: 10px; color: white;
+            border-radius: 12px; color: white; font-family: 'Poppins';
         }
 
         .save-btn {
             background: var(--neon-blue); color: #000; font-weight: 700;
-            border: none; padding: 14px; border-radius: 10px; width: 100%;
+            border: none; padding: 15px; border-radius: 12px; width: 100%;
+            cursor: pointer; transition: 0.3s;
         }
+        .save-btn:disabled { opacity: 0.5; }
+
+        #loading { text-align: center; padding: 40px; color: var(--neon-blue); font-family: 'Orbitron'; font-size: 0.8rem; }
     </style>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"></head>
+</head>
 <body>
 
 <div class="container">
     <header class="header-card">
         <div class="profile">
             <div class="avatar-ring">
-                <div class="avatar-box">
-                    <video id="avatar-video" loop="" muted="" playsinline="" autoplay="">
+                <div class="avatar-box" onclick="handleAvatarInteraction()">
+                    <video id="avatar-video" loop muted playsinline autoplay>
                         <source src="avatar.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
             <div class="title-box">
                 <h1>GOM SCIENTIFIC</h1>
-                <p style="font-size: 0.6rem; opacity: 0.6;">CLOUD DATABASE ACTIVE</p>
+                <p style="font-size: 0.6rem; opacity: 0.5; letter-spacing: 1.5px;">DATABASE CONNECTED</p>
             </div>
         </div>
-        <i class="fas fa-signal" style="color: var(--neon-blue); font-size: 0.8rem;"></i>
+        <i class="fas fa-microchip" style="color: var(--neon-blue); opacity: 0.8;"></i>
     </header>
 
-    <div id="dynamic-grid"><div class="category-wrapper active">
-                <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
-                    <div class="category-title"><i class="fas fa-folder-open"></i> Investigación</div>
-                    <i class="fas fa-chevron-down chevron"></i>
-                </div>
-                <div class="category-content" id="cat-Investigación"><div class="link-card">
-                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(0)"></i>
-                        <a href="https://consensus.app/" target="_blank">
-                            <i class="fas fa-brain main-icon"></i><br>
-                            <span>Consensus</span>
-                        </a>
-                    </div><div class="link-card">
-                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(1)"></i>
-                        <a href="https://www.perplexity.ai/" target="_blank">
-                            <i class="fas fa-magnifying-glass main-icon"></i><br>
-                            <span>Perplexity</span>
-                        </a>
-                    </div></div>
-            </div><div class="category-wrapper active">
-                <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
-                    <div class="category-title"><i class="fas fa-folder-open"></i> MIPES</div>
-                    <i class="fas fa-chevron-down chevron"></i>
-                </div>
-                <div class="category-content" id="cat-MIPES"><div class="link-card">
-                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(2)"></i>
-                        <a href="https://confianzaseguridad772-max.github.io/Asistencia/" target="_blank">
-                            <i class="fas fa-users-gear main-icon"></i><br>
-                            <span>Gp:Asistencia</span>
-                        </a>
-                    </div></div>
-            </div><div class="category-wrapper active">
-                <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
-                    <div class="category-title"><i class="fas fa-folder-open"></i> Buscador</div>
-                    <i class="fas fa-chevron-down chevron"></i>
-                </div>
-                <div class="category-content" id="cat-Buscador"><div class="link-card">
-                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(3)"></i>
-                        <a href="www.google.com" target="_blank">
-                            <i class="fas fa-brain main-icon"></i><br>
-                            <span>Go</span>
-                        </a>
-                    </div><div class="link-card">
-                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(4)"></i>
-                        <a href="www.google.com" target="_blank">
-                            <i class="fas fa-brain main-icon"></i><br>
-                            <span>Go</span>
-                        </a>
-                    </div></div>
-            </div></div>
+    <div id="loading"><i class="fas fa-atom fa-spin"></i> SINCRONIZANDO NUBE...</div>
+    <div id="dynamic-grid"></div>
 </div>
 
 <button class="fab" onclick="toggleModal()"><i class="fas fa-plus"></i></button>
 
-<div id="adminModal" class="modal" style="display: flex;">
+<div id="adminModal" class="modal">
     <div class="modal-content">
-        <h2 style="font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 20px; text-align: center; color: var(--neon-blue);">AÑADIR ACCESO</h2>
-        <input type="text" id="siteName" placeholder="Nombre (Ej: Google)">
-        <input type="text" id="siteUrl" placeholder="URL (https://...)">
-        <input type="text" id="siteCat" placeholder="Categoría">
+        <h2 style="font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 20px; text-align: center; color: var(--neon-blue);">NUEVO ACCESO</h2>
+        <input type="text" id="siteName" placeholder="Nombre (Ej: Perplexity)">
+        <input type="text" id="siteUrl" placeholder="URL (www.ejemplo.com)">
+        <input type="text" id="siteCat" placeholder="Categoría (Ej: Salud)">
         <select id="siteIcon">
             <option value="fa-flask-vial">Laboratorio</option>
             <option value="fa-stethoscope">Salud</option>
-            <option value="fa-brain">Cerebro</option>
+            <option value="fa-brain">IA / Cerebro</option>
             <option value="fa-users-gear">Gestión</option>
             <option value="fa-globe">Web</option>
         </select>
-        <button class="save-btn" onclick="saveToGitHub()">SINCRONIZAR AHORA</button>
-        <button onclick="toggleModal()" style="background:transparent; color:white; width:100%; margin-top:10px; border:none; opacity:0.5;">Cerrar</button>
+        <button id="btnSave" class="save-btn" onclick="saveToExcel()">VINCULAR AHORA</button>
+        <button onclick="toggleModal()" style="background:transparent; color:white; width:100%; margin-top:15px; border:none; opacity:0.5;">Cerrar</button>
     </div>
 </div>
 
+<audio id="avatar-audio"><source src="avatar.mp3" type="audio/mp3"></audio>
+
 <script>
-    const CONFIG = {
-        p1: "ghp_As2nvsum", 
-        p2: "eyEdyYjaHwx4N45V",
-        p3: "zdOkE00v4jka",
-        repo: "confianzaseguridad772-max/pagGOM",
-        get token() { return this.p1 + this.p2 + this.p3; }
-    };
+    // URL DE TU NUEVO SCRIPT DE GOOGLE
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz5kw2ObPz_0xmXArSbNlNnJC54Zx58s-rk4hZy6rmFDibUfD4hBLlGX8YGZmtFzoq3Ew/exec";
 
-    const myPages = [
-    {
-        "name": "Consensus",
-        "url": "https://consensus.app/",
-        "cat": "Investigación",
-        "icon": "fa-brain"
-    },
-    {
-        "name": "Perplexity",
-        "url": "https://www.perplexity.ai/",
-        "cat": "Investigación",
-        "icon": "fa-magnifying-glass"
-    },
-    {
-        "name": "Gp:Asistencia",
-        "url": "https://confianzaseguridad772-max.github.io/Asistencia/",
-        "cat": "MIPES",
-        "icon": "fa-users-gear"
-    },
-    {
-        "name": "Go",
-        "url": "www.google.com",
-        "cat": "Buscador",
-        "icon": "fa-brain"
-    },
-    {
-        "name": "Go",
-        "url": "www.google.com",
-        "cat": "Buscador",
-        "icon": "fa-brain"
-    },
-    {
-        "name": "DIT",
-        "url": "https://confianzaseguridad772-max.github.io/GeoBoyGirl/",
-        "cat": "DIT",
-        "icon": "fa-stethoscope"
-    }
-];
-
-    function renderDashboard() {
+    async function loadDashboard() {
         const grid = document.getElementById('dynamic-grid');
-        grid.innerHTML = '';
-        const categories = [...new Set(myPages.map(p => p.cat))];
-
-        categories.forEach(category => {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'category-wrapper active';
-            const catId = category.replace(/\s+/g, '');
+        const loading = document.getElementById('loading');
+        
+        try {
+            const response = await fetch(SCRIPT_URL);
+            const data = await response.json();
             
-            wrapper.innerHTML = `
-                <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
-                    <div class="category-title"><i class="fas fa-folder-open"></i> ${category}</div>
-                    <i class="fas fa-chevron-down chevron"></i>
-                </div>
-                <div class="category-content" id="cat-${catId}"></div>
-            `;
-            grid.appendChild(wrapper);
+            loading.style.display = 'none';
+            grid.innerHTML = '';
 
-            const contentBox = document.getElementById(`cat-${catId}`);
-            myPages.forEach((page, idx) => {
-                if(page.cat === category) {
+            const categories = [...new Set(data.map(p => p.cat))];
+
+            categories.forEach(category => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'category-wrapper active';
+                const catId = category.replace(/\s+/g, '');
+                
+                wrapper.innerHTML = `
+                    <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
+                        <div class="category-title"><i class="fas fa-folder-open"></i> ${category}</div>
+                        <i class="fas fa-chevron-down chevron"></i>
+                    </div>
+                    <div class="category-content" id="cat-${catId}"></div>
+                `;
+                grid.appendChild(wrapper);
+
+                const contentBox = document.getElementById(`cat-${catId}`);
+                data.filter(p => p.cat === category).forEach(page => {
                     const card = document.createElement('div');
                     card.className = 'link-card';
                     card.innerHTML = `
-                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(${idx})"></i>
                         <a href="${page.url}" target="_blank">
                             <i class="fas ${page.icon} main-icon"></i><br>
                             <span>${page.name}</span>
                         </a>
                     `;
                     contentBox.appendChild(card);
-                }
+                });
             });
-        });
+        } catch (e) {
+            loading.innerHTML = "❌ Error al conectar con el Excel.";
+        }
+    }
+
+    async function saveToExcel() {
+        const name = document.getElementById('siteName').value;
+        let url = document.getElementById('siteUrl').value;
+        const cat = document.getElementById('siteCat').value;
+        const icon = document.getElementById('siteIcon').value;
+        const btn = document.getElementById('btnSave');
+
+        if (name && url && cat) {
+            if (!url.startsWith('http')) url = 'https://' + url;
+            
+            btn.disabled = true;
+            btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> PROCESANDO...";
+
+            const finalUrl = `${SCRIPT_URL}?name=${encodeURIComponent(name)}&url=${encodeURIComponent(url)}&cat=${encodeURIComponent(cat)}&icon=${encodeURIComponent(icon)}`;
+
+            try {
+                await fetch(finalUrl, { mode: 'no-cors' });
+                alert("✅ Sincronizado con el Excel.");
+                location.reload();
+            } catch (e) {
+                alert("Error al guardar.");
+                btn.disabled = false;
+            }
+        }
     }
 
     function toggleModal() {
@@ -330,54 +265,13 @@
         m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
     }
 
-    async function deleteLink(index) {
-        if(confirm("¿Eliminar acceso?")) {
-            myPages.splice(index, 1);
-            await pushToGitHub("Enlace eliminado");
-        }
+    function handleAvatarInteraction() {
+        const audio = document.getElementById('avatar-audio');
+        if(audio.paused) audio.play();
+        else { audio.pause(); audio.currentTime = 0; }
     }
 
-    async function saveToGitHub() {
-        const name = document.getElementById('siteName').value;
-        const url = document.getElementById('siteUrl').value;
-        const cat = document.getElementById('siteCat').value;
-        const icon = document.getElementById('siteIcon').value;
-
-        if (name && url && cat) {
-            myPages.push({ name, url, cat, icon });
-            await pushToGitHub(`Nuevo: ${name}`);
-        } else { alert("Faltan datos"); }
-    }
-
-    async function pushToGitHub(msg) {
-        const apiUrl = `https://api.github.com/repos/${CONFIG.repo}/contents/index.html`;
-        try {
-            const res = await fetch(apiUrl, { headers: { Authorization: `token ${CONFIG.token}` } });
-            const data = await res.json();
-            
-            let fullCode = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-            const newArrayStr = `const myPages = ${JSON.stringify(myPages, null, 4)};`;
-            const updatedCode = fullCode.replace(/const myPages = \[[\s\S]*?\];/, newArrayStr);
-
-            const commit = await fetch(apiUrl, {
-                method: "PUT",
-                headers: { Authorization: `token ${CONFIG.token}`, "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    message: msg,
-                    content: btoa(unescape(encodeURIComponent(updatedCode))),
-                    sha: data.sha
-                })
-            });
-
-            if (commit.ok) {
-                alert("Sincronizado. La página se actualizará en 10 segundos.");
-                setTimeout(() => { location.reload(); }, 10000); // Espera 10 seg antes de recargar
-            } else { alert("Error de sincronización."); }
-        } catch (e) { alert("Error de red."); }
-    }
-
-    window.onload = renderDashboard;
+    window.onload = loadDashboard;
 </script>
-
-
-</body><justdone-content-app id="justdone-content-app" style="z-index: 2147483647; position: fixed;"></justdone-content-app></html>
+</body>
+</html>
