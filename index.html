@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
+<html lang="es"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scientific Hub | GOM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&amp;family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -157,7 +156,7 @@
         <div class="profile">
             <div class="avatar-ring">
                 <div class="avatar-box">
-                    <video id="avatar-video" loop muted playsinline autoplay>
+                    <video id="avatar-video" loop="" muted="" playsinline="" autoplay="">
                         <source src="avatar.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -170,12 +169,42 @@
         <i class="fas fa-signal" style="color: var(--neon-blue); font-size: 0.8rem;"></i>
     </header>
 
-    <div id="dynamic-grid"></div>
+    <div id="dynamic-grid"><div class="category-wrapper active">
+                <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
+                    <div class="category-title"><i class="fas fa-folder-open"></i> Investigación</div>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </div>
+                <div class="category-content" id="cat-Investigación"><div class="link-card">
+                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(0)"></i>
+                        <a href="https://consensus.app/" target="_blank">
+                            <i class="fas fa-brain main-icon"></i><br>
+                            <span>Consensus</span>
+                        </a>
+                    </div><div class="link-card">
+                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(1)"></i>
+                        <a href="https://www.perplexity.ai/" target="_blank">
+                            <i class="fas fa-magnifying-glass main-icon"></i><br>
+                            <span>Perplexity</span>
+                        </a>
+                    </div></div>
+            </div><div class="category-wrapper active">
+                <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
+                    <div class="category-title"><i class="fas fa-folder-open"></i> MIPES</div>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </div>
+                <div class="category-content" id="cat-MIPES"><div class="link-card">
+                        <i class="fas fa-trash-can delete-btn" onclick="event.stopPropagation(); deleteLink(2)"></i>
+                        <a href="https://confianzaseguridad772-max.github.io/Asistencia/" target="_blank">
+                            <i class="fas fa-users-gear main-icon"></i><br>
+                            <span>Gp:Asistencia</span>
+                        </a>
+                    </div></div>
+            </div></div>
 </div>
 
 <button class="fab" onclick="toggleModal()"><i class="fas fa-plus"></i></button>
 
-<div id="adminModal" class="modal">
+<div id="adminModal" class="modal" style="display: flex;">
     <div class="modal-content">
         <h2 style="font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 20px; text-align: center; color: var(--neon-blue);">AÑADIR ACCESO</h2>
         <input type="text" id="siteName" placeholder="Nombre (Ej: Google)">
@@ -220,6 +249,12 @@
         "url": "https://confianzaseguridad772-max.github.io/Asistencia/",
         "cat": "MIPES",
         "icon": "fa-users-gear"
+    },
+    {
+        "name": "Go",
+        "url": "www.google.com",
+        "cat": "Buscador",
+        "icon": "fa-brain"
     }
 ];
 
@@ -313,5 +348,6 @@
 
     window.onload = renderDashboard;
 </script>
-</body>
-</html>
+
+
+</body></html>
