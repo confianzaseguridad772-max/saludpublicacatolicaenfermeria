@@ -44,7 +44,7 @@
         .link-card span { font-size: 0.75rem; font-weight: 300; display: block; }
 
         /* Acciones (Eliminar/Editar) */
-        .card-actions { position: absolute; top: 8px; right: 8px; display: flex; gap: 6px; opacity: 0.4; transition: 0.3s; }
+        .card-actions { position: absolute; top: 8px; right: 8px; display: flex; gap: 6px; opacity: 0; transition: 0.3s; }
         .link-card:hover .card-actions { opacity: 1; }
         .action-btn { background: rgba(0,0,0,0.3); border: none; color: white; width: 26px; height: 26px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; }
         .btn-del:hover { background: #ff4d4d; color: white; }
@@ -63,7 +63,7 @@
     <header class="header-card">
         <div class="profile">
             <div class="avatar-ring">
-                <div class="avatar-box" onmouseenter="playAvatarAudio()" onmouseleave="stopAvatarAudio()">
+                <div class="avatar-box" onmouseenter="playAvatarSound()" onmouseleave="stopAvatarSound()">
                     <video id="avatar-video" loop muted playsinline autoplay>
                         <source src="avatar.mp4" type="video/mp4">
                     </video>
@@ -104,10 +104,20 @@
     </div>
 </div>
 
-<audio id="avatar-audio"><source src="avatar.mp3" type="audio/mp3"></audio>
-
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvgDaKKcOVLyznXTeKkhtQRjcMPhOEjCkTasTwvDchbRuTm1ugQ3Z1jgMNpGvfaY5Cnw/exec";
+    const video = document.getElementById('avatar-video');
+
+    // LÓGICA DE AUDIO DEL VIDEO
+    function playAvatarSound() {
+        video.muted = false; // Activa el sonido
+        video.currentTime = 0; // Reinicia el video para escuchar desde el inicio
+        video.play().catch(error => console.log("Interacción requerida para audio"));
+    }
+
+    function stopAvatarSound() {
+        video.muted = true; // Silencia el video al salir el mouse
+    }
 
     // CARGAR DASHBOARD
     async function loadDashboard() {
@@ -188,11 +198,6 @@
             location.reload();
         }
     }
-
-    // AUDIO POR HOVER
-    const audio = document.getElementById('avatar-audio');
-    function playAvatarAudio() { audio.currentTime = 0; audio.play().catch(e => {}); }
-    function stopAvatarAudio() { audio.pause(); }
 
     function toggleModal() {
         const m = document.getElementById('adminModal');
