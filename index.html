@@ -43,7 +43,7 @@
         .link-card i.main-icon { font-size: 1.7rem; margin-bottom: 8px; color: var(--neon-blue); text-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
         .link-card span { font-size: 0.75rem; font-weight: 300; display: block; }
 
-        /* Acciones (Eliminar/Editar) */
+        /* Acciones */
         .card-actions { position: absolute; top: 8px; right: 8px; display: flex; gap: 6px; opacity: 0; transition: 0.3s; }
         .link-card:hover .card-actions { opacity: 1; }
         .action-btn { background: rgba(0,0,0,0.3); border: none; color: white; width: 26px; height: 26px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; }
@@ -51,9 +51,24 @@
 
         /* Floating Button & Modal */
         .fab { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple)); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; color: white; font-size: 1.3rem; cursor: pointer; z-index: 1000; box-shadow: 0 10px 25px rgba(0,210,255,0.4); }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(15px); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: #0f172a; width: 100%; max-width: 400px; padding: 30px; border-radius: 24px; border: 1px solid var(--neon-blue); box-shadow: 0 0 40px rgba(0,210,255,0.2); }
-        input, select { width: 100%; padding: 14px; margin-bottom: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 12px; color: white; font-family: 'Poppins'; }
+        
+        /* MEJORA: Select con fondo negro */
+        input, select { 
+            width: 100%; 
+            padding: 14px; 
+            margin-bottom: 12px; 
+            background: #000; 
+            border: 1px solid var(--glass-border); 
+            border-radius: 12px; 
+            color: white; 
+            font-family: 'Poppins';
+            outline: none;
+        }
+        select option { background: #000; color: #fff; }
+        input:focus, select:focus { border-color: var(--neon-blue); }
+
         .save-btn { background: var(--neon-blue); color: #000; font-weight: 700; border: none; padding: 15px; border-radius: 12px; width: 100%; cursor: pointer; font-family: 'Orbitron'; font-size: 0.8rem; }
     </style>
 </head>
@@ -89,16 +104,32 @@
 <div id="adminModal" class="modal">
     <div class="modal-content">
         <h2 style="font-family:'Orbitron'; font-size:0.9rem; text-align:center; margin-bottom:20px; color:var(--neon-blue);">NUEVO RECURSO</h2>
-        <input type="text" id="siteName" placeholder="Nombre">
-        <input type="text" id="siteUrl" placeholder="URL (www.google.com)">
-        <input type="text" id="siteCat" placeholder="Categoría">
+        <input type="text" id="siteName" placeholder="Nombre del sitio">
+        <input type="text" id="siteUrl" placeholder="URL (ej: www.google.com)">
+        <input type="text" id="siteCat" placeholder="Categoría (ej: MIPES, Salud...)">
+        
         <select id="siteIcon">
-            <option value="fa-flask-vial">Ciencia / Lab</option>
-            <option value="fa-stethoscope">Salud / Médico</option>
-            <option value="fa-brain">Inteligencia IA</option>
-            <option value="fa-users-gear">Gestión Pública</option>
-            <option value="fa-globe">Recurso Web</option>
+            <option value="fa-users">👥 Grupos</option>
+            <option value="fa-child">🧒 Niño</option>
+            <option value="fa-heart-pulse">❤️ Salud</option>
+            <option value="fa-church">⛪ Iglesia</option>
+            <option value="fa-microscope">🔬 Investigación</option>
+            <option value="fa-seedling">🌱 Desarrollo Infantil</option>
+            <option value="fa-brain">🧠 Inteligencia Artificial</option>
+            <option value="fa-video">🎥 Videos</option>
+            <option value="fa-flask-vial">🧪 Laboratorio</option>
+            <option value="fa-database">📊 Gestión de Datos</option>
+            <option value="fa-briefcase-medical">🏥 Gestión Pública</option>
+            <option value="fa-book-open-reader">📚 Biblioteca Digital</option>
+            <option value="fa-car">🚗 Mantenimiento Vehicular</option>
+            <option value="fa-globe">🌐 Recurso Web</option>
+            <option value="fa-shield-halved">🛡️ Seguridad</option>
+            <option value="fa-file-lines">📄 Documentos</option>
+            <option value="fa-calendar-check">📅 Agenda</option>
+            <option value="fa-laptop-code">💻 Desarrollo Web</option>
+            <option value="fa-chart-pie">📈 Estadísticas</option>
         </select>
+
         <button id="btnSave" class="save-btn" onclick="saveToExcel()">SINCRONIZAR AHORA</button>
         <button onclick="toggleModal()" style="background:transparent; color:white; width:100%; margin-top:10px; border:none; opacity:0.4; font-size:0.7rem;">CERRAR</button>
     </div>
@@ -108,26 +139,20 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvgDaKKcOVLyznXTeKkhtQRjcMPhOEjCkTasTwvDchbRuTm1ugQ3Z1jgMNpGvfaY5Cnw/exec";
     const video = document.getElementById('avatar-video');
 
-    // LÓGICA DE AUDIO DEL VIDEO
     function playAvatarSound() {
-        video.muted = false; // Activa el sonido
-        video.currentTime = 0; // Reinicia el video para escuchar desde el inicio
-        video.play().catch(error => console.log("Interacción requerida para audio"));
+        video.muted = false;
+        video.currentTime = 0;
+        video.play().catch(e => {});
     }
 
-    function stopAvatarSound() {
-        video.muted = true; // Silencia el video al salir el mouse
-    }
+    function stopAvatarSound() { video.muted = true; }
 
-    // CARGAR DASHBOARD
     async function loadDashboard() {
         const grid = document.getElementById('dynamic-grid');
         const loading = document.getElementById('loading');
-        
         try {
             const response = await fetch(SCRIPT_URL);
             const data = await response.json();
-            
             loading.style.display = 'none';
             grid.innerHTML = '';
 
@@ -136,7 +161,6 @@
                 const wrap = document.createElement('div');
                 wrap.className = 'category-wrapper active';
                 const catId = cat.replace(/\s+/g, '');
-                
                 wrap.innerHTML = `
                     <div class="category-header" onclick="this.parentElement.classList.toggle('active')">
                         <div class="category-title"><i class="fas fa-folder-open"></i> ${cat}</div>
@@ -151,9 +175,7 @@
                     card.className = 'link-card';
                     card.innerHTML = `
                         <div class="card-actions">
-                            <button class="action-btn btn-del" title="Eliminar" onclick="deletePage('${page.name}')">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
+                            <button class="action-btn btn-del" onclick="deletePage('${page.name}')"><i class="fas fa-trash-alt"></i></button>
                         </div>
                         <a href="${page.url}" target="_blank">
                             <i class="fas ${page.icon} main-icon"></i><br>
@@ -163,12 +185,9 @@
                     document.getElementById(`cat-${catId}`).appendChild(card);
                 });
             });
-        } catch (e) {
-            loading.innerHTML = "❌ ERROR DE CONEXIÓN";
-        }
+        } catch (e) { loading.innerHTML = "❌ ERROR DE CONEXIÓN"; }
     }
 
-    // AÑADIR NUEVA PÁGINA
     async function saveToExcel() {
         const name = document.getElementById('siteName').value;
         let url = document.getElementById('siteUrl').value;
@@ -180,21 +199,18 @@
             if (!url.startsWith('http')) url = 'https://' + url;
             btn.disabled = true;
             btn.innerHTML = "ENVIANDO...";
-
             const finalUrl = `${SCRIPT_URL}?name=${encodeURIComponent(name)}&url=${encodeURIComponent(url)}&cat=${encodeURIComponent(cat)}&icon=${encodeURIComponent(icon)}`;
-            
             await fetch(finalUrl, { mode: 'no-cors' });
-            alert("✅ Guardado en Google Sheets.");
+            alert("✅ Guardado en la Nube.");
             location.reload();
+        } else {
+            alert("Completa todos los campos.");
         }
     }
 
-    // ELIMINAR PÁGINA
     async function deletePage(name) {
-        if (confirm(`¿Deseas eliminar "${name}" permanentemente?`)) {
-            const deleteUrl = `${SCRIPT_URL}?action=delete&name=${encodeURIComponent(name)}`;
-            await fetch(deleteUrl, { mode: 'no-cors' });
-            alert("🗑️ Eliminado de la base de datos.");
+        if (confirm(`¿Eliminar "${name}"?`)) {
+            await fetch(`${SCRIPT_URL}?action=delete&name=${encodeURIComponent(name)}`, { mode: 'no-cors' });
             location.reload();
         }
     }
